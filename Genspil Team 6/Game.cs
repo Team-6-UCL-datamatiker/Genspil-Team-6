@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Genspil_Team_6
 {
-    internal class BoardGame(string gameName, string genre, string condition, int gameID, int noOfPlayers, double price, bool available)
+    internal class Game(string name, string genre, string condition, int gameID, int noOfPlayers, double price, bool available)
     {
-        public string GameName { get; set; } = gameName;
+        public string Name { get; set; } = name;
         public string Genre { get; set; } = genre;
         public string Condition { get; set; } = condition;
         public int GameID { get; set; } = gameID;
