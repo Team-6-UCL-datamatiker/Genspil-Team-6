@@ -24,5 +24,23 @@ namespace GenspilTest
             Assert.AreEqual(customerName, request.CustomerName);
             Assert.AreEqual(customerPhone, request.CustomerPhone);
         }
+
+        [TestMethod]
+        public void CheckEmployeeConstructor()
+        {
+            //ARRANGE
+            string name = "Anders Andersen";
+            string userID = "4";
+            int accessLevel = 2;
+
+            //ACT
+            Employee employee = new Employee(name, userID, accessLevel);
+
+            //ASSERT
+            Assert.AreEqual(name, employee.Name);
+            Assert.AreEqual(userID, employee.UserID);
+            Assert.AreEqual(accessLevel, employee.AccessLevel);
+        }
+
     }
 }
