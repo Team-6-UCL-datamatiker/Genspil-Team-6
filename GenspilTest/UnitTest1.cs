@@ -42,5 +42,30 @@ namespace GenspilTest
             Assert.AreEqual(accessLevel, employee.AccessLevel);
         }
 
+        [TestMethod]
+        public void CheckBoardGameConstructor()
+        {
+            //ARRANGE
+            string gameName = "Stratego";
+            string genre = "Strategy";
+            string condition = "GOOD";
+            int gameID = 23;
+            int noOfPlayers = 2;
+            double price = 120;
+            bool available = true;
+
+            //ACT
+            BoardGame game = new BoardGame(gameName, genre, condition, gameID, noOfPlayers, price, available);
+
+            //ASSERT
+            Assert.AreEqual(gameName, game.GameName);
+            Assert.AreEqual(genre, game.Genre);
+            Assert.AreEqual(condition, game.Condition);
+            Assert.AreEqual(gameID, game.GameID);
+            Assert.AreEqual(noOfPlayers, game.NoOfPlayers);
+            Assert.AreEqual(price, game.Price);
+            Assert.AreEqual(available, game.Available);      
+        }
+
     }
 }
