@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Genspil_Team_6
 {
-    internal class Request(string gameName, int requestID, string customerName, string customerPhone)
+    public class Request(string gameName, int requestID, string customerName, string customerPhone)
     {
         public string GameName { get; set; } = gameName;
         public int RequestID { get; set; } = requestID;
