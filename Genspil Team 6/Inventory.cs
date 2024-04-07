@@ -11,9 +11,15 @@ namespace Genspil_Team_6
     {
         private List<BoardGame> games = new List<BoardGame>();
         private List<Request> requests = new List<Request>();
+        private string solutionDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+        private string gameDatabasePath;
+        private string requestDatabasePath;
 
-        private string gameDatabasePath = @"C:\Users\Jeppe Lynge\Documents\Datamatiker\Projekt 3 - Genspil\Genspil-Team-6\Genspil Team 6\GameDatabase.txt";
-        private string requestDatabasePath = @"C:\Users\Jeppe Lynge\Documents\Datamatiker\Projekt 3 - Genspil\Genspil-Team-6\Genspil Team 6\RequestDatabase.txt";
+        public Inventory() 
+        {
+            gameDatabasePath = Path.Combine(solutionDirectory, "GameDatabase.txt");
+            requestDatabasePath = Path.Combine(solutionDirectory, "RequestDatabase.txt");
+        }
 
         //Add methods
         public void AddGameFromUserInput()
