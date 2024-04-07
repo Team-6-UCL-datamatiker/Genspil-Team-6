@@ -83,14 +83,17 @@ namespace Genspil_Team_6
                 // Handle choice
                 switch (choice)
                 {
+                    //Add filter
                     case "1":
                         Console.Clear();
                         filteredInventory.DisplayInventory();
                         filteredInventory = filteredInventory.Search();
                         break;
+                    //Clear filters
                     case "2":
                         filteredInventory = inventory;
                         break;
+                    //Return to main menu
                     case "3":
                         continueFiltering = false;
                         break;
