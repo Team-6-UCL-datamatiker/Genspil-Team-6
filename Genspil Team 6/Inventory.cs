@@ -71,6 +71,80 @@ namespace Genspil_Team_6
         }
 
 
+        //Remove methods
+        public void RemoveGame()
+        {
+            Console.Write("Enter ID of Game to remove: ");
+            int ID;
+
+            //Handle wrong inputs
+            if (!int.TryParse(Console.ReadLine(), out ID))
+            {
+                Console.WriteLine("Invalid input. Must be an integer!");
+                Console.ReadLine();
+                return;
+            }
+
+            BoardGame gameToRemove = null;
+
+            foreach (BoardGame game in this.games)
+            {
+                if (game.GameID == ID)
+                {
+                    gameToRemove = game;
+                    break;
+                }
+            }
+
+            if (gameToRemove != null)
+            {
+                this.games.Remove(gameToRemove);
+                SaveInventoryToFile();
+                Console.WriteLine("Game was successfully removed!");
+            }
+            else
+            {
+                Console.WriteLine("Game not found!");
+            }
+            Console.ReadLine();
+        }
+        public void RemoveRequest()
+        {
+            Console.Write("Enter ID of Request to remove: ");
+            int ID;
+
+            //Handle wrong inputs
+            if (!int.TryParse(Console.ReadLine(), out ID))
+            {
+                Console.WriteLine("Invalid input. Must be an integer!");
+                Console.ReadLine();
+                return;
+            }
+
+            Request requestToRemove = null;
+
+            foreach (Request request in this.requests)
+            {
+                if (request.RequestID == ID)
+                {
+                    requestToRemove = request;
+                    break;
+                }
+            }
+
+            if (requestToRemove != null)
+            {
+                this.requests.Remove(requestToRemove);
+                SaveRequestsToFile();
+                Console.WriteLine("Request was successfully removed!");
+            }
+            else
+            {
+                Console.WriteLine("Request not found!");
+            }
+            Console.ReadLine();
+        }
+
         //Search
         public Inventory Search()
         {
