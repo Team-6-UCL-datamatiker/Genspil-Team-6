@@ -11,6 +11,45 @@ namespace Genspil_Team_6
 
         }
 
+        static void InventorySearchMenu(Inventory inventory)
+        {
+            Console.Clear();
+
+            bool continueFiltering = true;
+            Inventory filteredInventory = inventory;
+
+            while (continueFiltering)
+            {
+                // Display inventory
+                filteredInventory.DisplayInventory();
+                Console.WriteLine();
+
+                // Search menu
+                DisplaySearchMenu();
+                string choice = Console.ReadLine();
+
+                // Handle choice
+                switch (choice)
+                {
+                    case "1":
+                        Console.Clear();
+                        filteredInventory.DisplayInventory();
+                        filteredInventory = filteredInventory.Search();
+                        break;
+                    case "2":
+                        filteredInventory = inventory;
+                        break;
+                    case "3":
+                        continueFiltering = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        Console.ReadLine();
+                        break;
+                }
+            }
+        }
+
         //Display methods
         static void DisplayMainMenu()
         {
