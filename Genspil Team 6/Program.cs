@@ -10,10 +10,16 @@ namespace Genspil_Team_6
         {
             Inventory inventory = new Inventory();
 
+            //Load data
             inventory.LoadInventoryFromFile();
             inventory.LoadRequestsFromFile();
 
             //Start UI
+            StartUI(inventory);
+        }
+
+        static void StartUI(Inventory inventory)
+        {
             while (true)
             {
                 Console.Clear();
