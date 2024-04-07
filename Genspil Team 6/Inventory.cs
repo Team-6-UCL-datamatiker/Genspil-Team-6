@@ -16,6 +16,53 @@ namespace Genspil_Team_6
         private string requestDatabasePath = @"C:\Users\Jeppe Lynge\Documents\Datamatiker\Projekt 3 - Genspil\Genspil-Team-6\Genspil Team 6\RequestDatabase.txt";
 
 
+        //Search
+        public Inventory Search()
+        {
+            Inventory filteredInventory = new Inventory();
+
+            Console.WriteLine("What do you want to filter by?\n");
+
+            Console.WriteLine("Press \"1\" to filter by name");
+            Console.WriteLine("Press \"2\" to filter by genre");
+            Console.WriteLine("Press \"3\" to filter by number of players");
+            Console.WriteLine("Press \"4\" to filter by availability");
+            Console.WriteLine("Press \"5\" to filter by game ID");
+            Console.WriteLine("Press \"6\" to filter by price");
+            Console.WriteLine("Press \"7\" to filter by condition");
+            string input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    FilterByName(filteredInventory);
+                    break;
+                case "2":
+                    FilterByGenre(filteredInventory);
+                    break;
+                case "3":
+                    FilterByPlayers(filteredInventory);
+                    break;
+                case "4":
+                    FilterByAvailability(filteredInventory);
+                    break;
+                case "5":
+                    FilterByGameID(filteredInventory);
+                    break;
+                case "6":
+                    FilterByPrice(filteredInventory);
+                    break;
+                case "7":
+                    FilterByCondition(filteredInventory);
+                    break;
+                default:
+                    Console.WriteLine("Invalid input. Please try again");
+                    Console.ReadLine();
+                    break;
+
+            }
+            return filteredInventory;
+        }
+
         //Display inventories
         public void DisplayInventory()
         {
