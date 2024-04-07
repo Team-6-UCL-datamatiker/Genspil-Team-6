@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Genspil_Team_6
 {
-    internal class Employee(string name, string userID, int accessLevel)
+    public class Employee(string name, string userID, int accessLevel)
     {
         public string Name { get; set; } = name;
         public string UserID { get; set; } = userID;
