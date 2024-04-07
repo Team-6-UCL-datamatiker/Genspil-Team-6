@@ -37,9 +37,9 @@ namespace Genspil_Team_6
             } while (!double.TryParse(Console.ReadLine(), out price));
             Console.Write("In stock? (y/n)");
             bool available = Console.ReadLine().ToLower() == "y";
-            int gameID = -1;
+            int gameID = GetAvailableGameID();
 
-            BoardGame game = new BoardGame(name, genre, condition, -1, amountOfPlayers, price, available); // Check gameID
+            BoardGame game = new BoardGame(name, genre, condition, gameID, amountOfPlayers, price, available); // Check gameID
 
             Console.Clear();
             Console.WriteLine($"You are adding this Game\nID: #{game.GameID}\nGame: {game.GameName}\nPrice: {game.Price}\nGenre: {game.Genre}\nNumber of Players: {game.NoOfPlayers}\nCondition: {game.Condition}\nAvailable: {(game.Available ? "Yes" : "No")}");
@@ -58,7 +58,7 @@ namespace Genspil_Team_6
             string gameName = Console.ReadLine();
             Console.Write("Number of the customer: ");
             string customerNumber = Console.ReadLine();
-            int requestID = -1;
+            int requestID = GetAvailableRequestID();
 
             Request request = new Request(gameName, requestID, customerName, customerNumber); // Check gameID
             Console.Clear();
@@ -355,6 +355,33 @@ namespace Genspil_Team_6
         }
 
 
+        //Handle ID increments
+        public int GetAvailableGameID()
+        {
+            int maxID = 0;
+            //find highest Game ID
+            foreach (BoardGame game in this.games)
+            {
+                if (game.GameID > maxID)
+                {
+                    maxID = game.GameID;
+                }
+            }
+            return maxID + 1;
+        }
+        public int GetAvailableRequestID()
+        {
+            int maxID = 0;
+            //find highest Game ID
+            foreach (Request request in this.requests)
+            {
+                if (request.RequestID > maxID)
+                {
+                    maxID = request.RequestID;
+                }
+            }
+            return maxID + 1;
+        }
 
         //Helper methods for filtering
         public Inventory FilterByName(Inventory inventory)
@@ -507,6 +534,8 @@ namespace Genspil_Team_6
             }
             return inventory;
         }
+
+
     }
 }
 
