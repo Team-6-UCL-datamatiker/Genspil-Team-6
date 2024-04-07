@@ -411,9 +411,28 @@ namespace Genspil_Team_6
         }
         public Inventory FilterByAvailability(Inventory inventory)
         {
-            Console.Write("Availablility [y/n]: ");
-            string searchWord = Console.ReadLine().ToLower();
+            string searchWord = "";
+            bool isInputValid = false;
 
+            //Handle wrong inputs
+            while (!isInputValid)
+            {
+
+                Console.Write("Availablility [y/n]: ");
+                searchWord = Console.ReadLine().ToLower();
+
+                if (searchWord == "y" || searchWord == "n")
+                {
+                    isInputValid = true;
+                }
+                else
+                {
+                    Console.WriteLine("Input must either \"y\" or \"n\". Plaease try again!");
+                    Console.ReadLine();
+                }
+
+            }
+            //Filter
             foreach (BoardGame game in this.games)
             {
                 if ((searchWord == "y" && game.Available) || (searchWord == "n" && !game.Available))
