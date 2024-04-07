@@ -15,6 +15,61 @@ namespace Genspil_Team_6
         private string gameDatabasePath = @"C:\Users\Jeppe Lynge\Documents\Datamatiker\Projekt 3 - Genspil\Genspil-Team-6\Genspil Team 6\GameDatabase.txt";
         private string requestDatabasePath = @"C:\Users\Jeppe Lynge\Documents\Datamatiker\Projekt 3 - Genspil\Genspil-Team-6\Genspil Team 6\RequestDatabase.txt";
 
+        //Add methods
+        public void AddGameFromUserInput()
+        {
+            Console.Write("Name of the game: ");
+            string name = Console.ReadLine();
+            Console.Write("What is the genre: ");
+            string genre = Console.ReadLine();
+            int amountOfPlayers;
+            do
+            {
+                Console.Write("Amount of players: ");
+            } while (!int.TryParse(Console.ReadLine(), out amountOfPlayers));
+
+            Console.Write("Condition: ");
+            string condition = Console.ReadLine().ToUpper();
+            double price;
+            do
+            {
+                Console.Write("Price: ");
+            } while (!double.TryParse(Console.ReadLine(), out price));
+            Console.Write("In stock? (y/n)");
+            bool available = Console.ReadLine().ToLower() == "y";
+            int gameID = -1;
+
+            BoardGame game = new BoardGame(name, genre, condition, -1, amountOfPlayers, price, available); // Check gameID
+
+            Console.Clear();
+            Console.WriteLine($"You are adding this Game\nID: #{game.GameID}\nGame: {game.GameName}\nPrice: {game.Price}\nGenre: {game.Genre}\nNumber of Players: {game.NoOfPlayers}\nCondition: {game.Condition}\nAvailable: {(game.Available ? "Yes" : "No")}");
+            Console.ReadLine();
+
+            //Add game
+            this.games.Add(game);
+            //Save to database
+            SaveInventoryToFile();
+        }
+        public void AddRequestFromUserInput()
+        {
+            Console.Write("Name of the customer: ");
+            string customerName = Console.ReadLine();
+            Console.Write("Name of the game: ");
+            string gameName = Console.ReadLine();
+            Console.Write("Number of the customer: ");
+            string customerNumber = Console.ReadLine();
+            int requestID = -1;
+
+            Request request = new Request(gameName, requestID, customerName, customerNumber); // Check gameID
+            Console.Clear();
+            Console.WriteLine($"You are adding this Request\nID: #{request.RequestID}\nGame: {request.GameName}\nCustomer Name: {request.CustomerName}\nPhone Number: {request.CustomerPhone}\n");
+            Console.ReadLine();
+            //Add request
+            this.requests.Add(request);
+            //Save to database
+            SaveRequestsToFile();
+        }
+
 
         //Search
         public Inventory Search()
