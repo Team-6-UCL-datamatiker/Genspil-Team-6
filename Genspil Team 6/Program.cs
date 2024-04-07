@@ -8,7 +8,53 @@ namespace Genspil_Team_6
     {
         static void Main(string[] args)
         {
+            Inventory inventory = new Inventory();
 
+            inventory.LoadInventoryFromFile();
+            inventory.LoadRequestsFromFile();
+
+            //Start UI
+            while (true)
+            {
+                Console.Clear();
+                //Logo
+                DisplayLogo();
+                //Main Menu
+                DisplayMainMenu();
+                string choice = Console.ReadLine();
+
+                //Handle choice
+                switch (choice)
+                {
+                    case "1":
+                        inventory.DisplayInventory();
+                        Console.ReadLine();
+                        break;
+                    case "2":
+                        InventorySearchMenu(inventory);
+                        break;
+                    case "3":
+                        inventory.AddGameFromUserInput();
+                        break;
+                    case "4":
+                        inventory.RemoveGame();
+                        break;
+                    case "5":
+                        inventory.DisplayRequests();
+                        break;
+                    case "6":
+                        inventory.AddRequestFromUserInput();
+                        break;
+                    case "7":
+                        inventory.RemoveRequest();
+                        break;
+                    case "8":
+                        return; //Exit
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
+            }
         }
 
         static void InventorySearchMenu(Inventory inventory)
