@@ -16,6 +16,44 @@ namespace Genspil_Team_6
         private string requestDatabasePath = @"C:\Users\Jeppe Lynge\Documents\Datamatiker\Projekt 3 - Genspil\Genspil-Team-6\Genspil Team 6\RequestDatabase.txt";
 
 
+        //Display inventories
+        public void DisplayInventory()
+        {
+            Console.Clear();
+
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("{0,-10}{1,-15}{2,-20}{3,-18}{4,-18}{5,-15}{6,-15}",
+                              "ID", "Name", "Genre", "Price", "Condition", "Players", "Available");
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
+
+            foreach (BoardGame game in games)
+            {
+                Console.WriteLine("{0,-10}{1,-15}{2,-20}{3,-20}{4,-19}{5,-15}{6,-15}",
+                                              "#" + game.GameID, game.GameName, game.Genre, game.Price.ToString("C"),
+                                              game.Condition, game.NoOfPlayers, game.Available ? "Yes" : "No");
+            }
+
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
+        }
+        public void DisplayRequests()
+        {
+            Console.Clear();
+
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("{0,-25}{1,-25}{2,-25}{3,-25}",
+                              "ID", "Game", "Customer Name", "Phone Number");
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
+
+            foreach (Request request in this.requests)
+            {
+                Console.WriteLine("{0,-25}{1,-25}{2,-25}{3,-25}",
+                                              "#" + request.RequestID, request.GameName, request.CustomerName, request.CustomerPhone);
+            }
+
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
+            Console.ReadLine();
+        }
+
         //Persistence
         public void SaveInventoryToFile()
         {
