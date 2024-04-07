@@ -1,10 +1,12 @@
-DND;Fantasy;4;True;-1;120;GOOD
-DND;Fantasy;4;True;-1;120;GOOD
-DND;Fantasy;4;True;-1;120;GOOD
-DND;Fantasy;4;True;-1;120;POOR
-Sequence;Fantasy;4;True;-1;120;POOR
-Sequence;Strategy;4;True;-1;322;GOOD
-Ludo;Family;4;True;-1;175;OKAY
-Chess;Strategy;2;False;-1;199,99;VERY GOOD
-Yatzy;Family;4;True;-1;210;GOOD
-Hint;Family;4;False;-1;120;POOR
+DND;Fantasy;4;True;1;120;GOOD
+DND;Fantasy;4;True;2;120;GOOD
+DND;Fantasy;4;True;3;120;GOOD
+DND;Fantasy;4;True;4;120;POOR
+Sequence;Fantasy;4;True;5;120;POOR
+Sequence;Strategy;4;True;6;322;GOOD
+Ludo;Family;4;True;7;175;OKAY
+Chess;Strategy;2;False;8;199,99;VERY GOOD
+Yatzy;Family;4;True;9;210;GOOD
+Hint;Family;4;False;10;120;POOR
+Ludo;Family;4;False;11;322;OKAY
+Bezzerwisser;Trivia;4;True;12;249,99;POOR
