@@ -15,13 +15,9 @@ namespace Genspil_Team_6
             {
                 Console.Clear();
                 Console.WriteLine("Veeeeeeelkommen til fars fede lagersystem!\n");
-                Console.WriteLine("1: Vis lagerbeholdning");
-                Console.WriteLine("2: Søg");
-                Console.WriteLine("3: Tilføj spil");
-                Console.WriteLine("4: Vis anmodninger");
-                Console.WriteLine("5: Søg anmodninger");
-                Console.WriteLine("6: Tilføj anmodning");
-                Console.WriteLine("q: Afslut\n");
+                Console.WriteLine("1: Spil");
+                Console.WriteLine("2: Anmodninger");
+                Console.WriteLine("q: Afslut");
                 s = TakeMenuInput();
             }
         }
@@ -31,41 +27,45 @@ namespace Genspil_Team_6
             switch (Console.ReadLine())
             {
                 case "1":
-                    Console.Clear();
                     Inventory.DisplayGameInventory(Inventory.LoadInventoryFile("Inventory.txt"));
-                    Console.WriteLine("\nTryk på en vilkårlig knap, for at vende tilbage til menuen.");
-                    Console.ReadLine();
+                    Console.WriteLine("\n1    : Tilføj spil");
+                    Console.WriteLine("2    : Søg (og rediger)");
+                    Console.WriteLine("Enter: Hovedmenu");
+                    switch (Console.ReadLine())
+                    {
+                        case "1":
+                            Console.Clear();
+                            Console.Write("Navn: ");
+                            Inventory.AddGame(Tester.StringTest("Navnet"));
+                            break;
+                        case "2":
+                            s = Inventory.InitiateGameSearch(Inventory.LoadInventoryFile("Inventory.txt"));
+                            break;
+                        default:
+                            break;
+                    }
                     break;
-
                 case "2":
-                    s = Inventory.InitiateSearch(Inventory.LoadInventoryFile("Inventory.txt"));
-                    break;
-
-                case "3":
-                    Console.Clear();
-                    Inventory.AddGame();
-                    break;
-
-                case "4":
-                    Console.Clear();
                     Inventory.DisplayRequestInventory(Inventory.LoadInventoryFile("Requests.txt"));
-                    Console.WriteLine("\nTryk på en vilkårlig knap, for at vende tilbage til menuen.");
-                    Console.ReadLine();
+                    Console.WriteLine("\n1    : Tilføj anmodning");
+                    Console.WriteLine("2    : Søg (og rediger)");
+                    Console.WriteLine("Enter: Hovedmenu");
+                    switch (Console.ReadLine())
+                    {
+                        case "1":
+                            Console.Clear();
+                            Inventory.AddRequest();
+                            break;
+                        case "2":
+                            s = Inventory.InitiateRequestSearch(Inventory.LoadInventoryFile("Requests.txt"));
+                            break;
+                        default:
+                            break;
+                    }
                     break;
-
-                case "5":
-                    s = Inventory.InitiateRequestSearch(Inventory.LoadInventoryFile("Requests.txt"));
-                    break;
-                
-                case "6":
-                    Console.Clear();
-                    Inventory.AddRequest();
-                    break;
-
                 case "q":
                     s = "q";
                     break;
-
                 default:
                     break;
             }

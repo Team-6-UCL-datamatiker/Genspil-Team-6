@@ -8,9 +8,9 @@ using System.Xml.Linq;
 
 namespace Genspil_Team_6
 {
-    internal class Request(int requestID, string gameName, string customerName, int customerPhoneNumber)
+    internal class Request(string requestID, string gameName, string customerName, int customerPhoneNumber)
     {
-        public int RequestID { get; set; } = requestID;
+        public string RequestID { get; set; } = requestID;
         public string GameName { get; set; } = gameName;
         public string CustomerName { get; set; } = customerName;
         public int CustomerPhoneNumber { get; set; } = customerPhoneNumber;
