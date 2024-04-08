@@ -21,10 +21,10 @@ namespace Genspil_Team_6
             inventory.LoadRequestsFromFile();
 
             //Start UI
-            StartUI(inventory);
+            StartUI(inventory, currentUser);
         }
 
-        static void StartUI(Inventory inventory)
+        static void StartUI(Inventory inventory, Employee currentUser)
         {
             while (true)
             {
@@ -32,12 +32,25 @@ namespace Genspil_Team_6
                 //Logo
                 DisplayLogo();
                 //Main Menu
-                DisplayMainMenu();
+                if (currentUser.AccessLevel == 2)
+                {
+                    DisplayAdminMenu();
+                }
+                else
+                {
+                    DisplayMainMenu();
+                }
                 string choice = Console.ReadLine();
 
                 //Handle choice
                 switch (choice)
                 {
+                    case "0":
+                        if (currentUser.AccessLevel == 2)
+                        {
+                            AddUser();
+                        }
+                        break;
                     case "1":
                         inventory.DisplayInventory();
                         Console.ReadLine();
@@ -135,6 +148,35 @@ namespace Genspil_Team_6
             Console.WriteLine("-----------------------------------------------------");
             Console.Write("Enter your choice: ");
         }
+
+        static void DisplayAdminMenu()
+        {
+            Console.WriteLine("Welcome to the Genspil Database System!\n");
+            Console.WriteLine("-----------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("0. Add User");
+            Console.ResetColor();
+
+            Console.WriteLine("-----------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("1. Display Inventory");
+            Console.WriteLine("2. Search Games");
+            Console.WriteLine("3. Add Game");
+            Console.WriteLine("4. Remove Game");
+            Console.ResetColor();
+            Console.WriteLine("-----------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("5. Display Requests");
+            Console.WriteLine("6. Add Request");
+            Console.WriteLine("7. Remove Request");
+            Console.ResetColor();
+            Console.WriteLine("-----------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("8. Exit");
+            Console.ResetColor();
+            Console.WriteLine("-----------------------------------------------------");
+            Console.Write("Enter your choice: ");
+        }
         static void DisplaySearchMenu()
         {
             Console.WriteLine("Filter Options:\n");
@@ -143,6 +185,7 @@ namespace Genspil_Team_6
             Console.WriteLine("3. Return to Main Menu");
             Console.Write("Enter your choice: ");
         }
+
         static void DisplayLogo()
         {
             // Logo
@@ -170,6 +213,17 @@ namespace Genspil_Team_6
                 Console.ReadLine();
                 Console.Clear();
             }
+        }
+
+        static void AddUser()
+        {
+            Console.Clear();
+            Console.Write("Enter Username: ");
+            string username = Console.ReadLine();
+
+            employees.Add(new Employee(username, "1", 1));
+            Console.WriteLine($"{username} added to the system!");
+            Console.ReadLine();
         }
     }
 }
