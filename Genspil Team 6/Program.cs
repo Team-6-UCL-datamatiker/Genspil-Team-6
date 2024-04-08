@@ -11,11 +11,14 @@ namespace Genspil_Team_6
         {
             Inventory inventory = new Inventory();
             UserManager userManager = new UserManager();
-            Employee currentUser = userManager.Login();
 
             //Load data
             inventory.LoadInventoryFromFile();
             inventory.LoadRequestsFromFile();
+            userManager.LoadUsersFromFile();
+
+            //Handle Login
+            Employee currentUser = userManager.Login();
 
             //Start UI
             StartUI(inventory, userManager, currentUser);
