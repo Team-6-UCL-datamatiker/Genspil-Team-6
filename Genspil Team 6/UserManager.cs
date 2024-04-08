@@ -54,6 +54,35 @@ namespace Genspil_Team_6
             Console.ReadLine();
         }
 
+        public void RemoveUser()
+        {
+            Console.Write("Enter Username of user to remove: ");
+            string username = Console.ReadLine();
+
+            Employee employeeToRemove = null;
+
+            foreach (Employee employee in this.employees)
+            {
+                if (employee.Name == username)
+                {
+                    employeeToRemove = employee;
+                    break;
+                }
+            }
+
+            if (employeeToRemove != null)
+            {
+                this.employees.Remove(employeeToRemove);
+                SaveUsersToFile();
+                Console.WriteLine($"{username} was successfully removed!");
+            }
+            else
+            {
+                Console.WriteLine("User not found!");
+            }
+            Console.ReadLine();
+        }
+
         public void SaveUsersToFile()
         {
             try
@@ -77,9 +106,6 @@ namespace Genspil_Team_6
             try
             {
                 this.employees.Clear();
-                //Add the admin user
-                this.employees.Add(new Employee("admin", "admin", 2));
-
                 string[] lines = File.ReadAllLines(userDatabasePath);
                 foreach (string line in lines)
                 {
@@ -99,6 +125,21 @@ namespace Genspil_Team_6
                     Employee employee = new Employee(username, password, accessLevel);
                     this.employees.Add(employee);
 
+                }
+                //Check if admin user already exist
+                bool adminExists = false;
+                foreach (Employee employee in this.employees)
+                {
+                    if (employee.Name == "admin" && employee.AccessLevel == 2)
+                    {
+                        adminExists = true;
+                        break;
+                    }
+                }
+                //Add admin if doesnt exist
+                if (!adminExists)
+                {
+                    this.employees.Add(new Employee("admin", "admin", 2));
                 }
             }
             catch (FileNotFoundException)
