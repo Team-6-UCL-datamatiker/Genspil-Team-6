@@ -76,6 +76,9 @@ namespace Genspil_Team_6
                         inventory.RemoveRequest();
                         break;
                     case "8":
+                        currentUser = userManager.Logout();
+                        break;
+                    case "9":
                         return; //Exit
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
@@ -145,7 +148,8 @@ namespace Genspil_Team_6
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("8. Exit");
+            Console.WriteLine("8. Logout");
+            Console.WriteLine("9. Exit");
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
             Console.Write("Enter your choice: ");
@@ -173,7 +177,8 @@ namespace Genspil_Team_6
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("8. Exit");
+            Console.WriteLine("8. Logout");
+            Console.WriteLine("9. Exit");
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
             Console.Write("Enter your choice: ");
