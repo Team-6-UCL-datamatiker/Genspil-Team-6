@@ -56,13 +56,20 @@ namespace Genspil_Team_6
 
         public void SaveUsersToFile()
         {
-            List<string> lines = new List<string>();
-
-            foreach (Employee employee in employees)
+            try
             {
-                lines.Add($"{employee.Name};{employee.Password};{employee.AccessLevel}");
+                List<string> lines = new List<string>();
+
+                foreach (Employee employee in employees)
+                {
+                    lines.Add($"{employee.Name};{employee.Password};{employee.AccessLevel}");
+                }
+                File.WriteAllLines(userDatabasePath, lines);
             }
-            File.WriteAllLines(userDatabasePath, lines);
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error! User could not be saved: {ex.Message}");
+            }
         }
 
         public void LoadUsersFromFile()
