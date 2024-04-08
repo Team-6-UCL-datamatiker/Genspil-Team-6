@@ -6,9 +6,15 @@ namespace Genspil_Team_6
 {
     internal class Program
     {
+        private static List<Employee> employees = new List<Employee>
+    {
+        new Employee("admin", "1", 2)
+    };
+
         static void Main(string[] args)
         {
             Inventory inventory = new Inventory();
+            Employee currentUser = Login();
 
             //Load data
             inventory.LoadInventoryFromFile();
@@ -109,24 +115,24 @@ namespace Genspil_Team_6
         static void DisplayMainMenu()
         {
             Console.WriteLine("Welcome to the Genspil Database System!\n");
-            Console.WriteLine("------------------------");
+            Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("1. Display Inventory");
             Console.WriteLine("2. Search Games");
             Console.WriteLine("3. Add Game");
             Console.WriteLine("4. Remove Game");
             Console.ResetColor();
-            Console.WriteLine("------------------------");
+            Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("5. Display Requests");
             Console.WriteLine("6. Add Request");
             Console.WriteLine("7. Remove Request");
             Console.ResetColor();
-            Console.WriteLine("------------------------");
+            Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("8. Exit");
             Console.ResetColor();
-            Console.WriteLine("------------------------");
+            Console.WriteLine("-----------------------------------------------------");
             Console.Write("Enter your choice: ");
         }
         static void DisplaySearchMenu()
@@ -146,5 +152,24 @@ namespace Genspil_Team_6
             Console.ResetColor();
         }
 
+        static Employee Login()
+        {
+            while (true)
+            {
+                Console.Write("Username: ");
+                string username = Console.ReadLine();
+
+                foreach (Employee employee in employees)
+                {
+                    if (employee.Name == username)
+                    {
+                        return employee;
+                    }
+                }
+                Console.WriteLine("Invalid username. Please try again");
+                Console.ReadLine();
+                Console.Clear();
+            }
+        }
     }
 }
