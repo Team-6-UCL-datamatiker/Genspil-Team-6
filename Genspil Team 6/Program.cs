@@ -6,25 +6,22 @@ namespace Genspil_Team_6
 {
     internal class Program
     {
-        private static List<Employee> employees = new List<Employee>
-    {
-        new Employee("admin", "1", 2)
-    };
 
         static void Main(string[] args)
         {
             Inventory inventory = new Inventory();
-            Employee currentUser = Login();
+            UserManager userManager = new UserManager();
+            Employee currentUser = userManager.Login();
 
             //Load data
             inventory.LoadInventoryFromFile();
             inventory.LoadRequestsFromFile();
 
             //Start UI
-            StartUI(inventory, currentUser);
+            StartUI(inventory, userManager, currentUser);
         }
 
-        static void StartUI(Inventory inventory, Employee currentUser)
+        static void StartUI(Inventory inventory, UserManager userManager, Employee currentUser)
         {
             while (true)
             {
@@ -48,7 +45,7 @@ namespace Genspil_Team_6
                     case "0":
                         if (currentUser.AccessLevel == 2)
                         {
-                            AddUser();
+                            userManager.AddUser();
                         }
                         break;
                     case "1":
@@ -195,35 +192,6 @@ namespace Genspil_Team_6
             Console.ResetColor();
         }
 
-        static Employee Login()
-        {
-            while (true)
-            {
-                Console.Write("Username: ");
-                string username = Console.ReadLine();
 
-                foreach (Employee employee in employees)
-                {
-                    if (employee.Name == username)
-                    {
-                        return employee;
-                    }
-                }
-                Console.WriteLine("Invalid username. Please try again");
-                Console.ReadLine();
-                Console.Clear();
-            }
-        }
-
-        static void AddUser()
-        {
-            Console.Clear();
-            Console.Write("Enter Username: ");
-            string username = Console.ReadLine();
-
-            employees.Add(new Employee(username, "1", 1));
-            Console.WriteLine($"{username} added to the system!");
-            Console.ReadLine();
-        }
     }
 }
