@@ -677,6 +677,5 @@ namespace Genspil_Team_6
             }
             return sInput;
         }
-
     }
 }
