@@ -19,6 +19,7 @@ namespace Genspil_Team_6
 
         public Employee Login()
         {
+            Console.Clear();
             while (true)
             {
                 Console.Write("Username: ");
@@ -37,6 +38,29 @@ namespace Genspil_Team_6
                 Console.ReadLine();
                 Console.Clear();
             }
+        }
+        public Employee Logout()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Are you sure you want to logout? [y/n])");
+                string input = Console.ReadLine();
+                switch (input)
+                {
+                    case "y":
+                        Console.WriteLine("Successfully logged out. Please log in again");
+                        Console.ReadLine();
+                        return Login();
+                    case "n":
+                        return null;
+                    default:
+                        Console.WriteLine("Invalid choice! Please press either \"y\" or \"n\"!");
+                        Console.ReadLine();
+                        break;
+                }
+            }
+
         }
 
         public void AddUser()
