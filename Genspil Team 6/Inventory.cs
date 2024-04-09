@@ -1,6 +1,7 @@
 ﻿using Genspil_Team_6;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace Genspil_Team_6
         //Add methods
         public void AddGameFromUserInput()
         {
+            Console.Clear();
+            DisplayInventory();
             Console.Write("Name of the game: ");
             string name = Console.ReadLine();
             Console.Write("What is the genre: ");
@@ -48,16 +51,24 @@ namespace Genspil_Team_6
             BoardGame game = new BoardGame(name, genre, condition, gameID, amountOfPlayers, price, available); // Check gameID
 
             Console.Clear();
+            DisplayInventory();
             Console.WriteLine($"You are adding this Game\nID: #{game.GameID}\nGame: {game.GameName}\nPrice: {game.Price}\nGenre: {game.Genre}\nNumber of Players: {game.NoOfPlayers}\nCondition: {game.Condition}\nAvailable: {(game.Available ? "Yes" : "No")}");
             Console.ReadLine();
 
             //Add game
             this.games.Add(game);
+
+            DisplayInventory();
+            Console.ReadLine();
+
             //Save to database
             SaveInventoryToFile();
         }
         public void AddRequestFromUserInput()
         {
+            Console.Clear();
+            DisplayRequests();
+
             Console.Write("Name of the customer: ");
             string customerName = Console.ReadLine();
             Console.Write("Name of the game: ");
@@ -68,18 +79,26 @@ namespace Genspil_Team_6
 
             Request request = new Request(gameName, requestID, customerName, customerNumber); // Check gameID
             Console.Clear();
+            DisplayRequests();
             Console.WriteLine($"You are adding this Request\nID: #{request.RequestID}\nGame: {request.GameName}\nCustomer Name: {request.CustomerName}\nPhone Number: {request.CustomerPhone}\n");
             Console.ReadLine();
             //Add request
             this.requests.Add(request);
             //Save to database
             SaveRequestsToFile();
+
+            Console.Clear();
+            DisplayRequests();
+            Console.ReadLine();
         }
 
 
         //Remove methods
         public void RemoveGame()
         {
+            Console.Clear();
+            DisplayInventory();
+
             Console.Write("Enter ID of Game to remove: ");
             int ID;
 
@@ -113,9 +132,16 @@ namespace Genspil_Team_6
                 Console.WriteLine("Game not found!");
             }
             Console.ReadLine();
+
+            Console.Clear();
+            DisplayInventory();
+            Console.ReadLine();
         }
         public void RemoveRequest()
         {
+            Console.Clear();
+            DisplayRequests();
+
             Console.Write("Enter ID of Request to remove: ");
             int ID;
 
@@ -149,6 +175,10 @@ namespace Genspil_Team_6
                 Console.WriteLine("Request not found!");
             }
             Console.ReadLine();
+
+            Console.Clear();
+            DisplayRequests();
+            Console.ReadLine();
         }
 
         //Edit methods
@@ -176,7 +206,7 @@ namespace Genspil_Team_6
 
             if (gameToEdit == null)
             {
-                Console.WriteLine("Game not found");
+                Console.WriteLine("Game not found!");
                 Console.ReadLine();
                 return;
             }
@@ -266,7 +296,80 @@ namespace Genspil_Team_6
                     Console.ReadLine();
                     break;
             }
+            Console.Clear();
+            DisplayInventory();
+            Console.ReadLine();
 
+            SaveInventoryToFile();
+
+        }
+        public void EditRequest()
+        {
+            DisplayRequests();
+            Console.Write("Enter the ID of the request you want to edit: ");
+            int ID;
+            if (!int.TryParse(Console.ReadLine(), out ID))
+            {
+                Console.WriteLine("Invalid input! ID must be a number");
+                Console.ReadLine();
+                return;
+            }
+
+            Request requestToEdit = null;
+            foreach (Request request in this.requests)
+            {
+                if (request.RequestID == ID)
+                {
+                    requestToEdit = request;
+                    break;
+                }
+            }
+
+            if (requestToEdit == null)
+            {
+                Console.WriteLine("Request not found!");
+                Console.ReadLine();
+                return;
+            }
+
+            //menu
+            Console.WriteLine("How do you want to edit the request?\n");
+            Console.WriteLine("1. Game name");
+            Console.WriteLine("2. Customer name");
+            Console.WriteLine("3. Customer phone");
+            Console.WriteLine("---------------------------------");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("4. Go back\n");
+            Console.ResetColor();
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    Console.Write("Type new name of game: ");
+                    requestToEdit.GameName = Console.ReadLine();
+                    break;
+                case "2":
+                    Console.Write("Type new name of customer: ");
+                    requestToEdit.CustomerName = Console.ReadLine();
+                    break;
+                case "3":
+                    Console.Write("Type new phone number of customer: ");
+                    requestToEdit.CustomerPhone = Console.ReadLine();
+                    break;
+                case "4":
+                    return;
+
+                default:
+                    Console.WriteLine("Invalid input! Please type a number 1-7");
+                    Console.ReadLine();
+                    break;
+            }
+            Console.Clear();
+            DisplayRequests();
+            Console.ReadLine();
+
+            SaveRequestsToFile();
         }
 
         //Search
@@ -351,7 +454,6 @@ namespace Genspil_Team_6
             }
 
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
-            Console.ReadLine();
         }
 
         //Persistence
