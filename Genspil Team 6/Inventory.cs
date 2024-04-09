@@ -15,7 +15,7 @@ namespace Genspil_Team_6
         private string gameDatabasePath;
         private string requestDatabasePath;
 
-        public Inventory() 
+        public Inventory()
         {
             gameDatabasePath = Path.Combine(solutionDirectory, "GameDatabase.txt");
             requestDatabasePath = Path.Combine(solutionDirectory, "RequestDatabase.txt");
@@ -149,6 +149,124 @@ namespace Genspil_Team_6
                 Console.WriteLine("Request not found!");
             }
             Console.ReadLine();
+        }
+
+        //Edit methods
+        public void EditGame()
+        {
+            DisplayInventory();
+            Console.Write("Enter the ID of the game you want to edit: ");
+            int ID;
+            if (!int.TryParse(Console.ReadLine(), out ID))
+            {
+                Console.WriteLine("Invalid input! ID must be a number");
+                Console.ReadLine();
+                return;
+            }
+
+            BoardGame gameToEdit = null;
+            foreach (BoardGame game in this.games)
+            {
+                if (game.GameID == ID)
+                {
+                    gameToEdit = game;
+                    break;
+                }
+            }
+
+            if (gameToEdit == null)
+            {
+                Console.WriteLine("Game not found");
+                Console.ReadLine();
+                return;
+            }
+
+            //menu
+            Console.WriteLine("How do you want to edit the game?\n");
+            Console.WriteLine("1. Game name");
+            Console.WriteLine("2. Genre");
+            Console.WriteLine("3. Condition");
+            Console.WriteLine("4. Number of players");
+            Console.WriteLine("5. Price");
+            Console.WriteLine("6. Availability");
+            Console.WriteLine("---------------------------------");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("7. Go back\n");
+            Console.ResetColor();
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    Console.Write("Type new name: ");
+                    gameToEdit.GameName = Console.ReadLine();
+                    break;
+                case "2":
+                    Console.Write("Type new genre: ");
+                    gameToEdit.Genre = Console.ReadLine();
+                    break;
+                case "3":
+                    Console.Write("Type new condition: ");
+                    gameToEdit.Condition = Console.ReadLine();
+                    break;
+                case "4":
+                    Console.Write("Type new number of players: ");
+                    int newNoOfPlayers;
+                    if (int.TryParse(Console.ReadLine(), out newNoOfPlayers))
+                    {
+                        gameToEdit.NoOfPlayers = newNoOfPlayers;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Invalid input! Value must be a number!\nNumber of players will not be edited!");
+                        Console.ReadLine();
+                    }
+                    break;
+
+                case "5":
+                    Console.Write("Type new Price: ");
+                    double newPrice;
+                    if (double.TryParse(Console.ReadLine(), out newPrice))
+                    {
+                        gameToEdit.Price = newPrice;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Invalid input! Value must be a number!\nPrice will not be edited!");
+                        Console.ReadLine();
+                    }
+                    break;
+                case "6":
+                    Console.Write("Is the game available? [y/n]: ");
+                    string input = Console.ReadLine().ToLower();
+                    bool newAvailable;
+                    if (input == "y")
+                    {
+                        newAvailable = true;
+                    }
+                    else if (input == "n")
+                    {
+
+                        newAvailable = false;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Invalid input!\nAvailability will not be edited!");
+                        Console.ReadLine();
+                    }
+                    break;
+                case "7":
+                    return;
+
+                default:
+                    Console.WriteLine("Invalid input! Please type a number 1-7");
+                    Console.ReadLine();
+                    break;
+            }
+
         }
 
         //Search
