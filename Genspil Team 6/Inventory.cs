@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Genspil_Team_6
+﻿namespace Genspil_Team_6
 {
     internal class Inventory
     {
@@ -30,16 +22,19 @@ namespace Genspil_Team_6
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("SPIL\n");
-            Console.WriteLine("{0,-5}{1,-15}{2,-15}{3,-15}{4,-10}{5,-14}{6,-10}",
-                  "ID", "Navn", "Genre", "Tilstand", "Spillere", "Tilgængeligt", "Pris\n");
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("{0,-88}","SPIL");
+
+            Console.WriteLine("{0,-5}{1,-20}{2,-20}{3,-12}{4,-12}{5,-9}{6,-10}",
+                  "ID", "Navn", "Genre", "Tilstand", "Spillere", "Stock", "Pris");
+            Console.BackgroundColor = ConsoleColor.Black;
             try
             {
                 for (int i = 0; i < inventory.Length - 1; i++)
                 {
                     string[] gameAttributes = inventory[i].Split(';');
                     Console.BackgroundColor = i % 2 == 0 ? ConsoleColor.Blue : ConsoleColor.DarkBlue;
-                    Console.WriteLine("{0,-5}{1,-15}{2,-15}{3,-15}{4,-10}{5,-14}{6,10}", gameAttributes[0], gameAttributes[1], gameAttributes[2], gameAttributes[3], gameAttributes[4] + "-" + gameAttributes[5], gameAttributes[6], double.Parse(gameAttributes[7]).ToString("C"));
+                    Console.WriteLine("{0,-5}{1,-20}{2,-20}{3,-12}{4,-12}{5,-9}{6,10}", gameAttributes[0], gameAttributes[1], gameAttributes[2], gameAttributes[3], gameAttributes[4] + "-" + gameAttributes[5], gameAttributes[6], double.Parse(gameAttributes[7]).ToString("C"));
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
             }
@@ -54,15 +49,15 @@ namespace Genspil_Team_6
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("ANMODNINGER\n");
-            Console.WriteLine("{0,-5}{1,-15}{2,-20}{3,-8}",
-                  "ID", "Spil", "Kunde", "Telefon\n");
+            Console.WriteLine("{0,-5}{1,-15}{2,-20}{3,-8}{4,15}",
+                  "ID", "Spil", "Kunde", "Tlf.", "Medarb. ID\n");
             try
             {
                 for (int i = 0; i < inventory.Length - 1; i++)
                 {
                     string[] requestAttributes = inventory[i].Split(';');
                     Console.BackgroundColor = i % 2 == 0 ? ConsoleColor.Blue : ConsoleColor.DarkBlue;
-                    Console.WriteLine("{0,-5}{1,-15}{2,-20}{3,-8}", requestAttributes[0], requestAttributes[1], requestAttributes[2], requestAttributes[3]);
+                    Console.WriteLine("{0,-5}{1,-15}{2,-20}{3,-8}{4,15}", requestAttributes[0], requestAttributes[1], requestAttributes[2], requestAttributes[3], requestAttributes[4]);
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
             }
@@ -71,6 +66,48 @@ namespace Genspil_Team_6
                 Console.WriteLine("Exception: " + e.Message);
             }
             Console.ForegroundColor = ConsoleColor.Gray;
+        }
+        public static void DisplayUserInventory(string[] inventory)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("BRUGERE\n");
+            Console.WriteLine("{0,-5}{1,-15}{2,-6}",
+                  "ID", "Navn", "Adgang\n");
+            try
+            {
+                for (int i = 0; i < inventory.Length - 1; i++)
+                {
+                    string[] requestAttributes = inventory[i].Split(';');
+                    Console.BackgroundColor = i % 2 == 0 ? ConsoleColor.Blue : ConsoleColor.DarkBlue;
+                    Console.WriteLine("{0,-5}{1,-15}{2,-6}", requestAttributes[0], requestAttributes[1], requestAttributes[3]);
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+        public static void AddUser(int accesslevel)
+        {
+            string userID = Tester.IDIterateTest(LoadInventoryFile("Users.txt"));
+            Console.Write("Brugernavn: ");
+            string name = Tester.StringTest("Brugernavnet");
+            Console.Write("Password: ");
+            string password = Tester.StringTest("Password");
+            Employee employee = new(userID, name, password, accesslevel);
+            try
+            {
+                using StreamWriter sw = new("Users.txt", true);
+                sw.WriteLine(employee.CreateInventoryItem());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+
         }
         public static void AddGame(string gameName)
         {
@@ -94,7 +131,6 @@ namespace Genspil_Team_6
             }
             Console.Clear();
             double price = dInput;
-
             Console.Write("Er det tilgængeligt?: ");
             string sInput = Console.ReadLine();
             while (string.IsNullOrEmpty(sInput) || !(sInput.ToLower() == "ja" || sInput.ToLower() == "nej"))
@@ -106,9 +142,7 @@ namespace Genspil_Team_6
             Console.Clear();
             bool available = false;
             if (sInput == "ja") { available = true; }
-
             Game game = new(gameID, name, genre, condition, minNoOfPlayers, maxNoOfPlayers, available, price);
-
             try
             {
                 using StreamWriter sw = new("Inventory.txt", true);
@@ -119,7 +153,7 @@ namespace Genspil_Team_6
                 Console.WriteLine("Exception: " + e.Message);
             }
         }
-        public static void AddRequest()
+        public static void AddRequest(string userID)
         {
             Tester.FileTest("Requests.txt");
             string requestID = Tester.IDIterateTest(LoadInventoryFile("Requests.txt"));
@@ -128,16 +162,14 @@ namespace Genspil_Team_6
             Console.Write("Kundes fulde navn: ");
             string customerName = Tester.StringTest("Kundens navn");
             Console.Write("Kundens telefonnummer: ");
-            int dInput;
-            while ((int.TryParse(Console.ReadLine(), out dInput) == false) || dInput < 10000000 || dInput > 99999999)
+            int customerPhoneNumber;
+            while ((int.TryParse(Console.ReadLine(), out customerPhoneNumber) == false) || customerPhoneNumber < 10000000 || customerPhoneNumber > 99999999)
             {
                 Console.Clear();
                 Console.Write("Telefonnummeret skal være et 8-cifret tal: ");
             }
             Console.Clear();
-            int customerPhoneNumber = dInput;
-            Console.Clear();
-            Request request = new(requestID, gameName, customerName, customerPhoneNumber);
+            Request request = new(requestID, gameName, customerName, customerPhoneNumber, userID);
             try
             {
                 using StreamWriter sw = new("Requests.txt", true);
@@ -181,11 +213,11 @@ namespace Genspil_Team_6
                     return EditAttribute(id, inventory, attributeIdentifier + 1, identifier, Tester.StringTest(identifier), "Inventory.txt", "IventoryTemp.txt");
                 case 3:
                     identifier = "Spillets tilstand";
-                    Console.Write("\nHvad skal spillets tilstand variablen ændres til? ");
-                    return EditAttribute(id, inventory, attributeIdentifier + 1, identifier, Tester.IntTest(identifier).ToString(), "Inventory.txt", "IventoryTemp.txt");
+                    Console.Write("\nHvad skal spillets tilstand ændres til? ");
+                    return EditAttribute(id, inventory, attributeIdentifier + 1, identifier, Tester.StringTest(identifier), "Inventory.txt", "IventoryTemp.txt");
                 case 4:
                     identifier = "Minimum antal spillere";
-                    Console.Write("\nHvad skal minimum antal spillere variablen ændres til? ");
+                    Console.Write("\nHvad skal minimum antal spillere ændres til? ");
                     return EditAttribute(id, inventory, attributeIdentifier + 1, identifier, Tester.IntTest(identifier).ToString(), "Inventory.txt", "IventoryTemp.txt");
                 case 5:
                     identifier = "Maximum antal spillere";
@@ -200,25 +232,7 @@ namespace Genspil_Team_6
                     Console.Write("\nHvad skal prisen ændres til? ");
                     return EditAttribute(id, inventory, attributeIdentifier + 1, identifier, Tester.DoubleTest(identifier).ToString(), "Inventory.txt", "IventoryTemp.txt");
                 case 8:
-                    for (int i = 0; i < inventory.Length - 1; i++)
-                    {
-                        if (inventory[i].Contains(id))
-                        {
-                            inventory[i] = "";
-                            break;
-                        }
-                    }
-                    StreamWriter sw = new("InventoryTemp.txt");
-                    for (int i = 0; i < inventory.Length - 1; i++)
-                    {
-                        if (inventory[i] != "")
-                        {
-                            sw.WriteLine(inventory[i]);
-                        }
-                    }
-                    sw.Close();
-                    File.Delete("Inventory.txt");
-                    File.Move("InventoryTemp.txt", "Inventory.txt");
+                    DeleteInventoryItem(id, inventory, "Inventory.txt", "InventoryTemp.txt");
                     return "Spillet er blevet slettet. Tryk på en vilkårlig tast for at vende tilbage til menuen.";
                 default:
                     return "n";
@@ -256,34 +270,22 @@ namespace Genspil_Team_6
                 case 3:
                     identifier = "Kundens telefonnummer";
                     Console.Write("\nHvad skal kundens telefonnummer ændres til? ");
-                    return EditAttribute(id, inventory, attributeIdentifier + 1, identifier, Tester.IntTest(identifier).ToString(), "Requests.txt", "RequestsTemp.txt");
+                    int customerPhoneNumber;
+                    while ((int.TryParse(Console.ReadLine(), out customerPhoneNumber) == false) || customerPhoneNumber < 10000000 || customerPhoneNumber > 99999999)
+                    {
+                        Console.Clear();
+                        Console.Write("Telefonnummeret skal være et 8-cifret tal: ");
+                    }
+                    return EditAttribute(id, inventory, attributeIdentifier + 1, identifier, customerPhoneNumber.ToString(), "Requests.txt", "RequestsTemp.txt");
                 case 4:
-                    for (int i = 0; i < inventory.Length - 1; i++)
-                    {
-                        if (inventory[i].Contains(id))
-                        {
-                            inventory[i] = "";
-                            break;
-                        }
-                    }
-                    StreamWriter sw = new("RequestsTemp.txt");
-                    for (int i = 0; i < inventory.Length - 1; i++)
-                    {
-                        if (inventory[i] != "")
-                        {
-                            sw.WriteLine(inventory[i]);
-                        }
-                    }
-                    sw.Close();
-                    File.Delete("Requests.txt");
-                    File.Move("RequestsTemp.txt", "Requests.txt");
+                    DeleteInventoryItem(id, inventory, "Requests.txt", "RequestsTemp.txt");
                     return "Anmodningen er blevet slettet. Tryk på en vilkårlig tast for at vende tilbage til menuen.";
                 case 5:
-                    string[] requestAttributes = new string[3];
+                    string[] requestAttributes;
                     for (int i = 0; i < inventory.Length - 1; i++)
                     {
 
-                        if (inventory[i].Contains(id))
+                        if (inventory[i].Substring(0, 3) == id)
                         {
                             requestAttributes = inventory[i].Split(';');
                             AddGame(requestAttributes[1]);
@@ -314,7 +316,7 @@ namespace Genspil_Team_6
             string newValue = "";
             for (int i = 0; i < inventory.Length - 1; i++)
             {
-                if (inventory[i].Contains(id))
+                if (inventory[i].Substring(0, 3) == id)
                 {
                     string[] attributes = inventory[i].Split(';');
                     attributes[attributeIdentifier - 1] = testMethod;
@@ -332,6 +334,28 @@ namespace Genspil_Team_6
             File.Delete(file);
             File.Move(tempFile, file);
             return $"{identifier} blev ændret til {newValue}. Tryk på en vilkårlig tast for at vende tilbage til menuen.";
+        }
+        public static void DeleteInventoryItem(string id, string[] inventory, string fileName, string tempFileName)
+        {
+            for (int i = 0; i < inventory.Length - 1; i++)
+            {
+                if (inventory[i].Substring(0, 3) == id)
+                {
+                    inventory[i] = "";
+                    break;
+                }
+            }
+            StreamWriter sw = new(tempFileName);
+            for (int i = 0; i < inventory.Length - 1; i++)
+            {
+                if (inventory[i] != "")
+                {
+                    sw.WriteLine(inventory[i]);
+                }
+            }
+            sw.Close();
+            File.Delete(fileName);
+            File.Move(tempFileName, fileName);
         }
         public static string InitiateGameSearch(string[] lines)
         {
@@ -401,7 +425,7 @@ namespace Genspil_Team_6
                     Console.WriteLine(EditGame(searchedInventory[0].Split(';')[0], int.Parse(searchedInventory[0].Split(';')[4])));
                     Console.ReadLine();
                 }
-                sInput = "n";
+                sInput = "n"; 
                 return sInput;
             }
             else

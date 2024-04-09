@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace Genspil_Team_6
 {
-    internal class Employee(string name, string userID, int accessLevel)
+    internal class Employee(string userID, string name, string password, int accessLevel)
     {
-        public string Name { get; set; } = name;
         public string UserID { get; set; } = userID;
+        public string Name { get; set; } = name;
+        public string Password { get; set; } = password;
         public int AccessLevel { get; set; } = accessLevel;
+        public string CreateInventoryItem()
+        {
+            return $"{UserID};{Name};{Password};{AccessLevel}";
+        }
     }
 }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
-namespace Genspil_Team_6
+﻿namespace Genspil_Team_6
 {
     internal class Game(string gameID, string name, string genre, string condition, int minNoOfPlayers, int maxNoOfPlayers, bool available, double price)
     {
