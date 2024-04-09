@@ -44,7 +44,7 @@ namespace Genspil_Team_6
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Are you sure you want to logout? [y/n])");
+                Console.Write("Are you sure you want to logout? [y/n] ");
                 string input = Console.ReadLine();
                 switch (input)
                 {
