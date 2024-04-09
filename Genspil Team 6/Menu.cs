@@ -9,16 +9,16 @@
             {
                 Console.Clear();
                 Console.WriteLine("Veeeeeeelkommen til fars fede lagersystem!\n");
-                Console.WriteLine("S: Spil");
-                Console.WriteLine("A: Anmodninger");
+                Console.WriteLine("1: Spil");
+                Console.WriteLine("2: Anmodninger");
                 if (accessLevel < 2)
                 {
-                    Console.WriteLine("B: Brugere");
+                    Console.WriteLine("3: Brugere");
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine("B: Brugere");
+                    Console.WriteLine("3: Brugere");
                     Console.ForegroundColor = ConsoleColor.Gray;
                 }
                 Console.WriteLine("\nq: Afslut\n");
@@ -28,64 +28,63 @@
         public static string TakeMenuInput(int accessLevel, string userID)
         {
             string s = "";
-            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            switch (keyInfo.Key)
+            switch (Console.ReadLine())
             {
-                case ConsoleKey.S:
+                case "1":
                     Inventory.DisplayGameInventory(Inventory.LoadInventoryFile("Inventory.txt"));
-                    Console.WriteLine("\nT    : Tilføj spil");
-                    Console.WriteLine("S    : Søg (og rediger)");
+                    Console.WriteLine("\n1    : Tilføj spil");
+                    Console.WriteLine("2    : Søg (og rediger)");
                     Console.WriteLine("\nEnter: Hovedmenu\n");
-                    switch (keyInfo.Key)
+                    switch (Console.ReadLine())
                     {
-                        case ConsoleKey.T:
+                        case "1":
                             Console.Clear();
                             Console.Write("Navn: ");
                             Inventory.AddGame(Tester.StringTest("Navnet"));
                             break;
-                        case ConsoleKey.S:
+                        case "2":
                             s = Inventory.InitiateGameSearch(Inventory.LoadInventoryFile("Inventory.txt"));
                             break;
                         default:
                             break;
                     }
                     break;
-                case ConsoleKey.A:
+                case "2":
                     Inventory.DisplayRequestInventory(Inventory.LoadInventoryFile("Requests.txt"));
-                    Console.WriteLine("\nT    : Tilføj anmodning");
-                    Console.WriteLine("S    : Søg (og rediger)");
+                    Console.WriteLine("\n1    : Tilføj anmodning");
+                    Console.WriteLine("2    : Søg (og rediger)");
                     Console.WriteLine("\nEnter: Hovedmenu\n");
-                    switch (keyInfo.Key)
+                    switch (Console.ReadLine())
                     {
-                        case ConsoleKey.T:
+                        case "1":
                             Console.Clear();
                             Inventory.AddRequest(userID);
                             break;
-                        case ConsoleKey.S:
+                        case "2":
                             s = Inventory.InitiateRequestSearch(Inventory.LoadInventoryFile("Requests.txt"));
                             break;
                         default:
                             break;
                     }
                     break;
-                case ConsoleKey.B:
+                case "3":
                     if (accessLevel < 2)
                     {
                         Console.Clear();
-                        Console.WriteLine("V    : Vis brugere");
-                        Console.WriteLine("T    : Tilføj bruger");
-                        Console.WriteLine("S    : Slet bruger");
+                        Console.WriteLine("1    : Vis brugere");
+                        Console.WriteLine("2    : Tilføj bruger");
+                        Console.WriteLine("3    : Slet bruger");
                         Console.WriteLine("\nEnter: Hovedmenu\n");
-                        switch (keyInfo.Key)
+                        switch (Console.ReadLine())
                         {
-                            case ConsoleKey.V:
+                            case "1":
                                 Inventory.DisplayUserInventory(Inventory.LoadInventoryFile("Users.txt"));
                                 Console.ReadLine();
                                 break;
-                            case ConsoleKey.T:
+                            case "2":
                                 Inventory.AddUser(2);
                                 break;
-                            case ConsoleKey.S:
+                            case "3":
                                 Console.WriteLine("Indtast bruger ID'et på den bruger, du vil slette.");
                                 string[] inventory = Inventory.LoadInventoryFile("Users.txt");
                                 for (int i = 0; i < inventory.Length - 1; i++)
@@ -109,7 +108,7 @@
                         Console.ReadLine();
                     }
                     break;
-                case ConsoleKey.Q:
+                case "q":
                     s = "q";
                     break;
                 default:
