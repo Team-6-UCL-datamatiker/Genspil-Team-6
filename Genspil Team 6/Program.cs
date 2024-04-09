@@ -74,18 +74,21 @@ namespace Genspil_Team_6
                         Console.ReadLine();
                         break;
                     case "7":
-                        inventory.AddRequestFromUserInput();
+                        RequestSearchMenu(inventory);
                         break;
                     case "8":
-                        inventory.RemoveRequest();
+                        inventory.AddRequestFromUserInput();
                         break;
                     case "9":
-                        inventory.EditRequest();
+                        inventory.RemoveRequest();
                         break;
                     case "10":
-                        currentUser = userManager.Logout(currentUser);
+                        inventory.EditRequest();
                         break;
                     case "11":
+                        currentUser = userManager.Logout(currentUser);
+                        break;
+                    case "12":
                         return; //Exit
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
@@ -135,6 +138,47 @@ namespace Genspil_Team_6
                 }
             }
         }
+        static void RequestSearchMenu(Inventory inventory)
+        {
+            Console.Clear();
+
+            bool continueFiltering = true;
+            Inventory filteredInventory = inventory;
+
+            while (continueFiltering)
+            {
+                // Display inventory
+                filteredInventory.DisplayRequests();
+                Console.WriteLine();
+
+                // Search menu
+                DisplaySearchMenu();
+                string choice = Console.ReadLine();
+
+                // Handle choice
+                switch (choice)
+                {
+                    //Add filter
+                    case "1":
+                        Console.Clear();
+                        filteredInventory.DisplayRequests();
+                        filteredInventory = filteredInventory.RequestSearch();
+                        break;
+                    //Clear filters
+                    case "2":
+                        filteredInventory = inventory;
+                        break;
+                    //Return to main menu
+                    case "3":
+                        continueFiltering = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        Console.ReadLine();
+                        break;
+                }
+            }
+        }
 
         //Display methods
         static void DisplayMainMenu(Employee currentUser)
@@ -151,14 +195,15 @@ namespace Genspil_Team_6
             Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("6. Display Requests");
-            Console.WriteLine("7. Add Request");
-            Console.WriteLine("8. Remove Request");
-            Console.WriteLine("9. Edit Request");
+            Console.WriteLine("7. Search Requests");
+            Console.WriteLine("8. Add Request");
+            Console.WriteLine("9. Remove Request");
+            Console.WriteLine("10. Edit Request");
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("10. Logout");
-            Console.WriteLine("11. Exit");
+            Console.WriteLine("11. Logout");
+            Console.WriteLine("12. Exit");
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
             Console.Write("Enter your choice: ");
@@ -182,14 +227,15 @@ namespace Genspil_Team_6
             Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("6. Display Requests");
-            Console.WriteLine("7. Add Request");
-            Console.WriteLine("8. Remove Request");
-            Console.WriteLine("9. Edit Request");
+            Console.WriteLine("7. Search Requests");
+            Console.WriteLine("8. Add Request");
+            Console.WriteLine("9. Remove Request");
+            Console.WriteLine("10. Edit Request");
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("10. Logout");
-            Console.WriteLine("11. Exit");
+            Console.WriteLine("11. Logout");
+            Console.WriteLine("12. Exit");
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
             Console.Write("Enter your choice: ");
