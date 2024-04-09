@@ -71,6 +71,7 @@ namespace Genspil_Team_6
                         break;
                     case "6":
                         inventory.DisplayRequests();
+                        Console.ReadLine();
                         break;
                     case "7":
                         inventory.AddRequestFromUserInput();
@@ -79,9 +80,12 @@ namespace Genspil_Team_6
                         inventory.RemoveRequest();
                         break;
                     case "9":
-                        currentUser = userManager.Logout();
+                        inventory.EditRequest();
                         break;
                     case "10":
+                        currentUser = userManager.Logout();
+                        break;
+                    case "11":
                         return; //Exit
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
@@ -149,11 +153,12 @@ namespace Genspil_Team_6
             Console.WriteLine("6. Display Requests");
             Console.WriteLine("7. Add Request");
             Console.WriteLine("8. Remove Request");
+            Console.WriteLine("9. Edit Request");
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("9. Logout");
-            Console.WriteLine("10. Exit");
+            Console.WriteLine("10. Logout");
+            Console.WriteLine("11. Exit");
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
             Console.Write("Enter your choice: ");
@@ -179,11 +184,12 @@ namespace Genspil_Team_6
             Console.WriteLine("6. Display Requests");
             Console.WriteLine("7. Add Request");
             Console.WriteLine("8. Remove Request");
+            Console.WriteLine("9. Edit Request");
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("9. Logout");
-            Console.WriteLine("10. Exit");
+            Console.WriteLine("10. Logout");
+            Console.WriteLine("11. Exit");
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
             Console.Write("Enter your choice: ");
