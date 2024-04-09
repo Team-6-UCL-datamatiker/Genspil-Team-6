@@ -418,6 +418,35 @@ namespace Genspil_Team_6
             }
             return filteredInventory;
         }
+        public Inventory RequestSearch()
+        {
+            Inventory filteredInventory = new Inventory();
+
+            Console.WriteLine("What do you want to filter by?\n");
+
+            Console.WriteLine("Press \"1\" to filter by game name");
+            Console.WriteLine("Press \"2\" to filter by customer name");
+            Console.WriteLine("Press \"3\" to filter by customer phone number");
+            string input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    RequestFilterByGameName(filteredInventory);
+                    break;
+                case "2":
+                    RequestFilterByCustomerName(filteredInventory);
+                    break;
+                case "3":
+                    RequestFilterByCustomerPhone(filteredInventory);
+                    break;
+                default:
+                    Console.WriteLine("Invalid input. Please try again");
+                    Console.ReadLine();
+                    break;
+
+            }
+            return filteredInventory;
+        }
 
         //Display inventories
         public void DisplayInventory()
@@ -610,6 +639,7 @@ namespace Genspil_Team_6
         }
 
         //Helper methods for filtering
+        //Games
         public Inventory FilterByName(Inventory inventory)
         {
             Console.Write("Type Name: ");
@@ -761,7 +791,46 @@ namespace Genspil_Team_6
             return inventory;
         }
 
-
+        //Requests
+        public Inventory RequestFilterByGameName(Inventory inventory)
+        {
+            Console.Write("Type Name: ");
+            string searchWord = Console.ReadLine().ToLower();
+            foreach (Request request in this.requests)
+            {
+                if (request.GameName.ToLower().Contains(searchWord))
+                {
+                    inventory.requests.Add(request);
+                }
+            }
+            return inventory;
+        }
+        public Inventory RequestFilterByCustomerName(Inventory inventory)
+        {
+            Console.Write("Type Customer name: ");
+            string searchWord = Console.ReadLine().ToLower();
+            foreach (Request request in this.requests)
+            {
+                if (request.CustomerName.ToLower().Contains(searchWord))
+                {
+                    inventory.requests.Add(request);
+                }
+            }
+            return inventory;
+        }
+        public Inventory RequestFilterByCustomerPhone(Inventory inventory)
+        {
+            Console.Write("Type Customer phone number: ");
+            string searchWord = Console.ReadLine().ToLower();
+            foreach (Request request in this.requests)
+            {
+                if (request.CustomerPhone.ToLower().Contains(searchWord))
+                {
+                    inventory.requests.Add(request);
+                }
+            }
+            return inventory;
+        }
     }
 }
 
