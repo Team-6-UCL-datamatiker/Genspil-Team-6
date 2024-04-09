@@ -22,9 +22,9 @@
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("{0,-88}","SPIL");
-
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("{0,-40}{1,-48}", "", "SPIL");
+            Console.WriteLine("{0,-88}", "");
             Console.WriteLine("{0,-5}{1,-20}{2,-20}{3,-12}{4,-12}{5,-9}{6,-10}",
                   "ID", "Navn", "Genre", "Tilstand", "Spillere", "Stock", "Pris");
             Console.BackgroundColor = ConsoleColor.Black;
@@ -48,8 +48,9 @@
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("{0,-70}", "ANMODNINGER");
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("{0,-30}{1,-40}", "", "ANMODNINGER");
+            Console.WriteLine("{0,-70}", "");
             Console.WriteLine("{0,-5}{1,-20}{2,-20}{3,-15}{4,-10}",
                   "ID", "Spil", "Kunde", "Tlf.", "Medarb. ID");
             Console.BackgroundColor = ConsoleColor.Black;
@@ -73,8 +74,9 @@
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("{0,-26}", "BRUGERE");
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("{0,-10}{1,-16}", "", "BRUGERE");
+            Console.WriteLine("{0,-26}", "");
             Console.WriteLine("{0,-5}{1,-15}{2,-6}",
                   "ID", "Navn", "Adgang");
             Console.BackgroundColor = ConsoleColor.Black;
