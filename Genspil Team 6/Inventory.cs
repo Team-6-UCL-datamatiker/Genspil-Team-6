@@ -27,7 +27,6 @@
 
             Console.WriteLine("{0,-5}{1,-20}{2,-20}{3,-12}{4,-12}{5,-9}{6,-10}",
                   "ID", "Navn", "Genre", "Tilstand", "Spillere", "Stock", "Pris");
-            Console.BackgroundColor = ConsoleColor.Black;
             try
             {
                 for (int i = 0; i < inventory.Length - 1; i++)
@@ -48,16 +47,17 @@
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("ANMODNINGER\n");
-            Console.WriteLine("{0,-5}{1,-15}{2,-20}{3,-8}{4,15}",
-                  "ID", "Spil", "Kunde", "Tlf.", "Medarb. ID\n");
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("{0,-70}", "ANMODNINGER");
+            Console.WriteLine("{0,-5}{1,-20}{2,-20}{3,-15}{4,-10}",
+                  "ID", "Spil", "Kunde", "Tlf.", "Medarb. ID");
             try
             {
                 for (int i = 0; i < inventory.Length - 1; i++)
                 {
                     string[] requestAttributes = inventory[i].Split(';');
                     Console.BackgroundColor = i % 2 == 0 ? ConsoleColor.Blue : ConsoleColor.DarkBlue;
-                    Console.WriteLine("{0,-5}{1,-15}{2,-20}{3,-8}{4,15}", requestAttributes[0], requestAttributes[1], requestAttributes[2], requestAttributes[3], requestAttributes[4]);
+                    Console.WriteLine("{0,-5}{1,-20}{2,-20}{3,-15}{4,-10}", requestAttributes[0], requestAttributes[1], requestAttributes[2], requestAttributes[3], requestAttributes[4]);
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
             }
@@ -71,9 +71,10 @@
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("BRUGERE\n");
+            Console.BackgroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine("{0,-26}", "BRUGERE");
             Console.WriteLine("{0,-5}{1,-15}{2,-6}",
-                  "ID", "Navn", "Adgang\n");
+                  "ID", "Navn", "Adgang");
             try
             {
                 for (int i = 0; i < inventory.Length - 1; i++)
@@ -92,6 +93,7 @@
         }
         public static void AddUser(int accesslevel)
         {
+            Console.WriteLine();
             string userID = Tester.IDIterateTest(LoadInventoryFile("Users.txt"));
             Console.Write("Brugernavn: ");
             string name = Tester.StringTest("Brugernavnet");

@@ -70,22 +70,17 @@
                 case "3":
                     if (accessLevel < 2)
                     {
-                        Console.Clear();
-                        Console.WriteLine("1    : Vis brugere");
-                        Console.WriteLine("2    : Tilføj bruger");
-                        Console.WriteLine("3    : Slet bruger");
+                        Inventory.DisplayUserInventory(Inventory.LoadInventoryFile("Users.txt"));
+                        Console.WriteLine("\n1    : Tilføj bruger");
+                        Console.WriteLine("2    : Slet bruger");
                         Console.WriteLine("\nEnter: Hovedmenu\n");
                         switch (Console.ReadLine())
                         {
                             case "1":
-                                Inventory.DisplayUserInventory(Inventory.LoadInventoryFile("Users.txt"));
-                                Console.ReadLine();
-                                break;
-                            case "2":
                                 Inventory.AddUser(2);
                                 break;
-                            case "3":
-                                Console.WriteLine("Indtast bruger ID'et på den bruger, du vil slette.");
+                            case "2":
+                                Console.Write("\nIndtast bruger ID'et på den bruger, du vil slette: ");
                                 string[] inventory = Inventory.LoadInventoryFile("Users.txt");
                                 for (int i = 0; i < inventory.Length - 1; i++)
                                 {
