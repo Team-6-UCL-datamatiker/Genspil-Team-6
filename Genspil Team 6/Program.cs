@@ -83,7 +83,7 @@ namespace Genspil_Team_6
                         inventory.EditRequest();
                         break;
                     case "10":
-                        currentUser = userManager.Logout();
+                        currentUser = userManager.Logout(currentUser);
                         break;
                     case "11":
                         return; //Exit
