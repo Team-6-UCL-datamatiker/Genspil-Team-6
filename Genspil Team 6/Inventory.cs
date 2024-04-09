@@ -27,6 +27,7 @@
 
             Console.WriteLine("{0,-5}{1,-20}{2,-20}{3,-12}{4,-12}{5,-9}{6,-10}",
                   "ID", "Navn", "Genre", "Tilstand", "Spillere", "Stock", "Pris");
+            Console.BackgroundColor = ConsoleColor.Black;
             try
             {
                 for (int i = 0; i < inventory.Length - 1; i++)
@@ -51,6 +52,7 @@
             Console.WriteLine("{0,-70}", "ANMODNINGER");
             Console.WriteLine("{0,-5}{1,-20}{2,-20}{3,-15}{4,-10}",
                   "ID", "Spil", "Kunde", "Tlf.", "Medarb. ID");
+            Console.BackgroundColor = ConsoleColor.Black;
             try
             {
                 for (int i = 0; i < inventory.Length - 1; i++)
@@ -75,6 +77,7 @@
             Console.WriteLine("{0,-26}", "BRUGERE");
             Console.WriteLine("{0,-5}{1,-15}{2,-6}",
                   "ID", "Navn", "Adgang");
+            Console.BackgroundColor = ConsoleColor.Black;
             try
             {
                 for (int i = 0; i < inventory.Length - 1; i++)
