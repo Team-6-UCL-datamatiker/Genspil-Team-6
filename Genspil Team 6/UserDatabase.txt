@@ -1,0 +1,7 @@
+admin;admin;2
+jeppe;password;1
+Bob;password;1
+Anders;123;1
+carsten;1234;1
+ib;321;1
+hej;hej;1

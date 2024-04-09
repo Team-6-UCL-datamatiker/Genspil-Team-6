@@ -77,7 +77,6 @@ namespace Genspil_Team_6
             Console.WriteLine($"{username} added to the system!");
             Console.ReadLine();
         }
-
         public void RemoveUser()
         {
             Console.Write("Enter Username of user to remove: ");
@@ -107,6 +106,7 @@ namespace Genspil_Team_6
             Console.ReadLine();
         }
 
+        //Persistence
         public void SaveUsersToFile()
         {
             try
@@ -124,7 +124,6 @@ namespace Genspil_Team_6
                 Console.WriteLine($"Error! User could not be saved: {ex.Message}");
             }
         }
-
         public void LoadUsersFromFile()
         {
             try

@@ -7,3 +7,4 @@ Ludo;6;Jim;99999999
 Bossen;7;Bo;98989898
 Ludo;8;Anders And;78787878
 Stratego;9;Anna Hansen;10203040
+Yatzy;10;Jeppe Hansen;98765432

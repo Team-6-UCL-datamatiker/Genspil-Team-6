@@ -183,7 +183,7 @@ namespace Genspil_Team_6
             Console.WriteLine("-----------------------------------------------------");
             Console.Write("Enter your choice: ");
         }
-        static void DisplayUserHandlingMenu()
+        static void DisplayUserHandlingMenu() //Call it somehting else? (not only displaying)
         {
             Console.Clear();
             DisplayLogo();
@@ -230,7 +230,7 @@ namespace Genspil_Team_6
             Console.ResetColor();
         }
 
-
+        //Need to add a edit games/request option. Maybe a search in requests
     }
 }
 
