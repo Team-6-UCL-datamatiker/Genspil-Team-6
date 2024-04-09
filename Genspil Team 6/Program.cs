@@ -40,7 +40,7 @@ namespace Genspil_Team_6
                 }
                 else
                 {
-                    DisplayMainMenu();
+                    DisplayMainMenu(currentUser);
                 }
                 string choice = Console.ReadLine();
 
@@ -137,9 +137,9 @@ namespace Genspil_Team_6
         }
 
         //Display methods
-        static void DisplayMainMenu()
+        static void DisplayMainMenu(Employee currentUser)
         {
-            Console.WriteLine("Welcome to the Genspil Database System!\n");
+            Console.WriteLine($"Welcome {currentUser.Name}! To the Genspil Database System!\n");
             Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("1. Display Inventory");
@@ -165,7 +165,7 @@ namespace Genspil_Team_6
         }
         static void DisplayAdminMenu()
         {
-            Console.WriteLine("Welcome to the Genspil Database System!\n");
+            Console.WriteLine("Welcome Admin! To the Genspil Database System!\n");
             Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("0. Add/Remove User");
