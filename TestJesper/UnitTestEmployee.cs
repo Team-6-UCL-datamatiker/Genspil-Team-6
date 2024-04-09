@@ -38,6 +38,11 @@ namespace TestEmployee
             }
                         
         }
+        [TestMethod]
+        public void TestToString()
+        {
+            Assert.AreEqual("Name: Jesper, UserID: 001, AccessLevel: 1", employee.ToString());
+        }
 
     }
 }
