@@ -10,4 +10,4 @@ Yatzy;Family;4;True;9;210;GOOD
 Hint;Family;4;False;10;120;POOR
 Ludo;Family;4;False;11;322;OKAY
 Bezzerwisser;Trivia;4;True;12;249,99;POOR
-Chess;Strategy;2;False;13;120;GOOD
+Chess;Strategy;2;False;13;122;GOOD
