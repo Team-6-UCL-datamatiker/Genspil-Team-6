@@ -39,7 +39,7 @@ namespace Genspil_Team_6
                 Console.Clear();
             }
         }
-        public Employee Logout()
+        public Employee Logout(Employee currentUser)
         {
             while (true)
             {
@@ -53,7 +53,7 @@ namespace Genspil_Team_6
                         Console.ReadLine();
                         return Login();
                     case "n":
-                        return null;
+                        return currentUser;
                     default:
                         Console.WriteLine("Invalid choice! Please press either \"y\" or \"n\"!");
                         Console.ReadLine();
