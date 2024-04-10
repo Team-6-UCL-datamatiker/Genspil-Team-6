@@ -64,7 +64,8 @@ namespace Genspil_Team_6
 
             while (line != null) 
             { 
-                string[] parts = line.Split(',');_ = new Game(parts[0], parts[1], parts[2], int.Parse(parts[3]), int.Parse(parts[4]), double.Parse(parts[5]), bool.Parse(parts[6]));
+                string[] parts = line.Split(',');
+                _ = new Game(parts[0], parts[1], parts[2], int.Parse(parts[3]), int.Parse(parts[4]), double.Parse(parts[5]), bool.Parse(parts[6]));
             
                 line = sr.ReadLine();
             }
