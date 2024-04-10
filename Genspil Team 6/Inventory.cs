@@ -31,11 +31,11 @@ namespace Genspil_Team_6
             string name = Console.ReadLine();
             Console.Write("What is the genre: ");
             string genre = Console.ReadLine();
-            int amountOfPlayers;
+            int noOfPlayers;
             do
             {
                 Console.Write("Amount of players: ");
-            } while (!int.TryParse(Console.ReadLine(), out amountOfPlayers));
+            } while (!int.TryParse(Console.ReadLine(), out noOfPlayers) || noOfPlayers < 1);
 
             Console.Write("Condition: ");
             string condition = Console.ReadLine().ToUpper();
@@ -43,12 +43,12 @@ namespace Genspil_Team_6
             do
             {
                 Console.Write("Price: ");
-            } while (!double.TryParse(Console.ReadLine(), out price));
+            } while (!double.TryParse(Console.ReadLine(), out price) || price < 0);
             Console.Write("In stock? (y/n)");
             bool available = Console.ReadLine().ToLower() == "y";
             int gameID = GetAvailableGameID();
 
-            BoardGame game = new BoardGame(name, genre, condition, gameID, amountOfPlayers, price, available); // Check gameID
+            BoardGame game = new BoardGame(name, genre, condition, gameID, noOfPlayers, price, available); // Check gameID
 
             Console.Clear();
             DisplayInventory();
@@ -242,14 +242,14 @@ namespace Genspil_Team_6
                 case "4":
                     Console.Write("Type new number of players: ");
                     int newNoOfPlayers;
-                    if (int.TryParse(Console.ReadLine(), out newNoOfPlayers))
+                    if (int.TryParse(Console.ReadLine(), out newNoOfPlayers) && newNoOfPlayers > 0)
                     {
                         gameToEdit.NoOfPlayers = newNoOfPlayers;
                     }
                     else
                     {
                         Console.Clear();
-                        Console.WriteLine("Invalid input! Value must be a number!\nNumber of players will not be edited!");
+                        Console.WriteLine("Invalid input! Value must be a number above 0!\nNumber of players will not be edited!");
                         Console.ReadLine();
                     }
                     break;
@@ -257,14 +257,14 @@ namespace Genspil_Team_6
                 case "5":
                     Console.Write("Type new Price: ");
                     double newPrice;
-                    if (double.TryParse(Console.ReadLine(), out newPrice))
+                    if (double.TryParse(Console.ReadLine(), out newPrice) && newPrice >= 0)
                     {
                         gameToEdit.Price = newPrice;
                     }
                     else
                     {
                         Console.Clear();
-                        Console.WriteLine("Invalid input! Value must be a number!\nPrice will not be edited!");
+                        Console.WriteLine("Invalid input! Value must be a positive number!\nPrice will not be edited!");
                         Console.ReadLine();
                     }
                     break;
