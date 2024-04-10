@@ -1,6 +1,5 @@
 Stratego;1;Anders Andersen;88888888
 DND;2;John Smith;45454545
-Stratego;3;Lene Lenesen;28675645
 Stratego;4;Anna Andersen;12345678
 DND;5;Jeppe Jepsen;23432343
 Ludo;6;Jim;99999999
@@ -9,4 +8,3 @@ Ludo;8;Anders And;78787878
 Stratego;9;Anna Hansen;10203040
 Yatzy;10;Jeppe Hansen;98765432
 Yatzy;12;Bente Bent;12332112
-Ludo;13;Katja Kaj;11111111
