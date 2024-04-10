@@ -61,7 +61,7 @@ namespace Genspil_Team_6
                         InventorySearchMenu(inventory);
                         break;
                     case "3":
-                        inventory.AddGameFromUserInput();
+                        inventory.AddGame();
                         break;
                     case "4":
                         inventory.RemoveGame();
@@ -77,13 +77,16 @@ namespace Genspil_Team_6
                         RequestSearchMenu(inventory);
                         break;
                     case "8":
-                        inventory.AddRequestFromUserInput();
+                        inventory.AddRequest();
                         break;
                     case "9":
                         inventory.RemoveRequest();
                         break;
                     case "10":
                         inventory.EditRequest();
+                        break;
+                    case "c":
+                        inventory.RequestToGame();
                         break;
                     case "l":
                         currentUser = userManager.Logout(currentUser);
@@ -121,7 +124,7 @@ namespace Genspil_Team_6
                     case "1":
                         Console.Clear();
                         filteredInventory.DisplayInventory();
-                        filteredInventory = filteredInventory.Search();
+                        filteredInventory = filteredInventory.InventorySearch();
                         break;
                     //Clear filters
                     case "2":
@@ -201,6 +204,10 @@ namespace Genspil_Team_6
             Console.WriteLine("10. Edit Request");
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("[c] Change Request into Game");
+            Console.ResetColor();
+            Console.WriteLine("-----------------------------------------------------");     
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("[l] Logout");
             Console.WriteLine("[q] Exit");
@@ -231,6 +238,10 @@ namespace Genspil_Team_6
             Console.WriteLine("8. Add Request");
             Console.WriteLine("9. Remove Request");
             Console.WriteLine("10. Edit Request");
+            Console.ResetColor();
+            Console.WriteLine("-----------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("[c] Change Request into Game");
             Console.ResetColor();
             Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.Red;
