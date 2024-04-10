@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Genspil_Team_6
 {
-    internal class Game 
+    public class Game 
     {
         public string Name { get; set; }
         public string Genre { get; set; }
