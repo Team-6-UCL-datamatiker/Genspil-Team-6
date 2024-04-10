@@ -287,7 +287,6 @@ namespace Genspil_Team_6
             Console.ResetColor();
         }
 
-        //Need to add a edit games/request option. Maybe a search in requests
     }
 }
 

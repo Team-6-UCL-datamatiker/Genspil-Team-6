@@ -504,6 +504,25 @@ namespace Genspil_Team_6
                 Console.WriteLine($"Error! Inventory could not be saved: {ex.Message}");
             }
         }
+        public void SaveRequestsToFile()
+        {
+            try
+            {
+                List<string> lines = new List<string>();
+
+                foreach (Request request in this.requests)
+                {
+                    lines.Add($"{request.GameName};{request.RequestID};{request.CustomerName};{request.CustomerPhone}");
+                }
+
+                File.WriteAllLines(requestDatabasePath, lines);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error! Requests could not be saved: {ex.Message}");
+            }
+        }
+
         public void LoadInventoryFromFile()
         {
             try
@@ -556,25 +575,6 @@ namespace Genspil_Team_6
                 Console.WriteLine("Error! Game datebase file not found!");
             }
 
-        }
-
-        public void SaveRequestsToFile()
-        {
-            try
-            {
-                List<string> lines = new List<string>();
-
-                foreach (Request request in this.requests)
-                {
-                    lines.Add($"{request.GameName};{request.RequestID};{request.CustomerName};{request.CustomerPhone}");
-                }
-
-                File.WriteAllLines(requestDatabasePath, lines);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error! Requests could not be saved: {ex.Message}");
-            }
         }
         public void LoadRequestsFromFile()
         {
