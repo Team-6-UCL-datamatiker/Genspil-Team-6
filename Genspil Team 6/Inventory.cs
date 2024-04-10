@@ -5,12 +5,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace Genspil_Team_6
 {
     public class Inventory
     {
-        private List<BoardGame> games = new List<BoardGame>();
+        private List<Game> games = new List<Game>();
         private List<Request> requests = new List<Request>();
         private string solutionDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
         private string gameDatabasePath;
@@ -23,7 +24,7 @@ namespace Genspil_Team_6
         }
 
         //Add methods
-        public void AddGameFromUserInput()
+        public void AddGame()
         {
             Console.Clear();
             DisplayInventory();
@@ -48,11 +49,11 @@ namespace Genspil_Team_6
             bool available = Console.ReadLine().ToLower() == "y";
             int gameID = GetAvailableGameID();
 
-            BoardGame game = new BoardGame(name, genre, condition, gameID, noOfPlayers, price, available); // Check gameID
+            Game game = new Game(name, genre, condition, gameID, noOfPlayers, price, available); // Check gameID
 
             Console.Clear();
             DisplayInventory();
-            Console.WriteLine($"You are adding this Game\nID: #{game.GameID}\nGame: {game.GameName}\nPrice: {game.Price}\nGenre: {game.Genre}\nNumber of Players: {game.NoOfPlayers}\nCondition: {game.Condition}\nAvailable: {(game.Available ? "Yes" : "No")}");
+            Console.WriteLine($"You are adding this Game:\n\n{game}");
             Console.ReadLine();
 
             //Add game
@@ -64,7 +65,7 @@ namespace Genspil_Team_6
             //Save to database
             SaveInventoryToFile();
         }
-        public void AddRequestFromUserInput()
+        public void AddRequest()
         {
             Console.Clear();
             DisplayRequests();
@@ -110,9 +111,9 @@ namespace Genspil_Team_6
                 return;
             }
 
-            BoardGame gameToRemove = null;
+            Game gameToRemove = null;
 
-            foreach (BoardGame game in this.games)
+            foreach (Game game in this.games)
             {
                 if (game.GameID == ID)
                 {
@@ -194,8 +195,8 @@ namespace Genspil_Team_6
                 return;
             }
 
-            BoardGame gameToEdit = null;
-            foreach (BoardGame game in this.games)
+            Game gameToEdit = null;
+            foreach (Game game in this.games)
             {
                 if (game.GameID == ID)
                 {
@@ -373,7 +374,7 @@ namespace Genspil_Team_6
         }
 
         //Search
-        public Inventory Search()
+        public Inventory InventorySearch()
         {
             Inventory filteredInventory = new Inventory();
 
@@ -458,7 +459,7 @@ namespace Genspil_Team_6
                               "ID", "Name", "Genre", "Price", "Condition", "Players", "Available");
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
 
-            foreach (BoardGame game in games)
+            foreach (Game game in games)
             {
                 Console.WriteLine("{0,-10}{1,-15}{2,-20}{3,-20}{4,-19}{5,-15}{6,-15}",
                                               "#" + game.GameID, game.GameName, game.Genre, game.Price.ToString("C"),
@@ -492,7 +493,7 @@ namespace Genspil_Team_6
             {
                 List<string> lines = new List<string>();
 
-                foreach (BoardGame game in games)
+                foreach (Game game in games)
                 {
                     lines.Add($"{game.GameName};{game.Genre};{game.NoOfPlayers};{game.Available};{game.GameID};{game.Price};{game.Condition}");
                 }
@@ -566,7 +567,7 @@ namespace Genspil_Team_6
                     }
                     string condition = parts[6];
 
-                    BoardGame game = new BoardGame(gameName, genre, condition, gameID, noOfPlayers, price, available);
+                    Game game = new Game(gameName, genre, condition, gameID, noOfPlayers, price, available);
                     this.games.Add(game);
                 }
             }
@@ -609,13 +610,85 @@ namespace Genspil_Team_6
             }
         }
 
+        public void RequestToGame()
+        {
+            Console.Clear();
+            DisplayRequests();
+
+            Console.Write("Enter the ID of the request to convert to a game: ");
+            int requestID;
+            if (!int.TryParse(Console.ReadLine(), out requestID))
+            {
+                Console.WriteLine("Invalid input! ID must be a number!");
+                Console.ReadLine();
+                return;
+            }
+
+            Request selectedRequest = null;
+            foreach (Request request in this.requests)
+            {
+                if (request.RequestID == requestID)
+                {
+                    selectedRequest = request;
+                    break;
+                }
+            }
+
+            if (selectedRequest == null)
+            {
+                Console.WriteLine("Request not found!");
+                Console.ReadLine();
+                return;
+            }
+
+            Console.WriteLine($"Selected request: #{selectedRequest.RequestID} {selectedRequest.GameName}");
+            Console.WriteLine("Enter the details about the new game!");
+
+            Console.Write("Enter genre: ");
+            string genre = Console.ReadLine();
+            int noOfPlayers;
+            do
+            {
+                Console.Write("Amount of players: ");
+            } while (!int.TryParse(Console.ReadLine(), out noOfPlayers) || noOfPlayers < 1);
+
+            Console.Write("Condition: ");
+            string condition = Console.ReadLine().ToUpper();
+            double price;
+            do
+            {
+                Console.Write("Price: ");
+            } while (!double.TryParse(Console.ReadLine(), out price) || price < 0);
+            Console.Write("In stock? (y/n)");
+            bool available = Console.ReadLine().ToLower() == "y";
+            int gameID = GetAvailableGameID();
+
+            Game game = new Game(selectedRequest.GameName, genre, condition, gameID, noOfPlayers, price, available); // Check gameID
+
+            Console.Clear();
+            DisplayInventory();
+            Console.WriteLine($"You are adding this Game:\n\n{game}");
+            Console.ReadLine();
+
+            //Add game
+            this.games.Add(game);
+            this.requests.Remove(selectedRequest);
+
+            DisplayInventory();
+            Console.ReadLine();
+
+            //Save to database
+            SaveInventoryToFile();
+            SaveRequestsToFile();
+        }
+
 
         //Handle ID increments
         public int GetAvailableGameID()
         {
             int maxID = 0;
             //find highest Game ID
-            foreach (BoardGame game in this.games)
+            foreach (Game game in this.games)
             {
                 if (game.GameID > maxID)
                 {
@@ -644,7 +717,7 @@ namespace Genspil_Team_6
         {
             Console.Write("Type Name: ");
             string searchWord = Console.ReadLine().ToLower();
-            foreach (BoardGame game in this.games)
+            foreach (Game game in this.games)
             {
                 if (game.GameName.ToLower().Contains(searchWord))
                 {
@@ -657,7 +730,7 @@ namespace Genspil_Team_6
         {
             Console.Write("Type Genre: ");
             string searchWord = Console.ReadLine().ToLower();
-            foreach (BoardGame game in this.games)
+            foreach (Game game in this.games)
             {
                 if (game.Genre.ToLower().Contains(searchWord))
                 {
@@ -683,7 +756,7 @@ namespace Genspil_Team_6
                 }
             }
             //Filter
-            foreach (BoardGame game in this.games)
+            foreach (Game game in this.games)
             {
                 if (game.NoOfPlayers == searchWord)
                 {
@@ -716,7 +789,7 @@ namespace Genspil_Team_6
 
             }
             //Filter
-            foreach (BoardGame game in this.games)
+            foreach (Game game in this.games)
             {
                 if ((searchWord == "y" && game.Available) || (searchWord == "n" && !game.Available))
                 {
@@ -742,7 +815,7 @@ namespace Genspil_Team_6
                 }
             }
             //Filter
-            foreach (BoardGame game in this.games)
+            foreach (Game game in this.games)
             {
                 if (game.GameID == searchWord)
                 {
@@ -768,7 +841,7 @@ namespace Genspil_Team_6
                 }
             }
             //Filter
-            foreach (BoardGame game in this.games)
+            foreach (Game game in this.games)
             {
                 if (game.Price <= searchWord)
                 {
@@ -781,7 +854,7 @@ namespace Genspil_Team_6
         {
             Console.Write("Type Condition: ");
             string searchWord = Console.ReadLine().ToLower();
-            foreach (BoardGame game in this.games)
+            foreach (Game game in this.games)
             {
                 if (game.Condition.ToLower().Contains(searchWord))
                 {
