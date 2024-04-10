@@ -55,14 +55,16 @@
         }
         public static bool BoolTest(string identifier)
         {
-            bool input;
-            while (bool.TryParse(Console.ReadLine(), out input) == false)
+            string input;
+            while (string.IsNullOrEmpty(input = Console.ReadLine()) || !(input.ToLower() == "ja" || input.ToLower() == "nej"))
             {
                 Console.Clear();
-                Console.WriteLine($"{identifier} skal sættes til true/false: ");
+                Console.Write($"{identifier} skal sættes til ja/nej: ");
             }
             Console.Clear();
-            return input;
+            bool available = false;
+            if (input == "ja") { available = true; }
+            return available;
         }
         public static bool IDMatchTest(string id, string[] inventory)
         {

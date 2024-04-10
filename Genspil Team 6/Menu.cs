@@ -82,15 +82,28 @@
                             case "2":
                                 Console.Write("\nIndtast bruger ID'et på den bruger, du vil slette: ");
                                 string[] inventory = Inventory.LoadInventoryFile("Users.txt");
+                                string id = Tester.StringTest("ID'et").ToLower();
+                                bool check = true;
                                 for (int i = 0; i < inventory.Length - 1; i++)
                                 {
                                     string[] userAttributes = inventory[i].Split(';');
-                                    if (userAttributes[0].ToLower() == Tester.StringTest("ID'et").ToLower())
+                                    if (userAttributes[0].ToLower() == id)
                                     {
                                         Console.WriteLine(userAttributes[1] + "'s bruger er blevet slettet. Tryk på enter for at returnere til hovedmenuen.");
                                         Console.ReadLine();
                                         Inventory.DeleteInventoryItem(userAttributes[0].ToLower(), inventory, "Users.txt", "UsersTemp.txt");
+                                        check = true;
+                                        break;
                                     }
+                                    else
+                                    {
+                                        check = false;
+                                    }
+                                }
+                                if (check == false)
+                                {
+                                    Console.WriteLine("ID'et blev ikke fundet. Tryk på Enter for at vende tilbage til hovedmenuen.");
+                                    Console.ReadLine();
                                 }
                                 break;
                             default:

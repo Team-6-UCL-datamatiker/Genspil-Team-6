@@ -100,6 +100,7 @@
         {
             Console.WriteLine();
             string userID = Tester.IDIterateTest(LoadInventoryFile("Users.txt"));
+            Console.Clear();
             Console.Write("Brugernavn: ");
             string name = Tester.StringTest("Brugernavnet");
             Console.Write("Password: ");
@@ -288,6 +289,7 @@
                     DeleteInventoryItem(id, inventory, "Requests.txt", "RequestsTemp.txt");
                     return "Anmodningen er blevet slettet. Tryk på en vilkårlig tast for at vende tilbage til menuen.";
                 case 5:
+                    Console.Clear();
                     string[] requestAttributes;
                     for (int i = 0; i < inventory.Length - 1; i++)
                     {
@@ -328,6 +330,14 @@
                     string[] attributes = inventory[i].Split(';');
                     attributes[attributeIdentifier - 1] = testMethod;
                     newValue = attributes[attributeIdentifier - 1];
+                    if (newValue == "True")
+                    {
+                        newValue = "ja";
+                    }
+                    else if ( newValue == "False" )
+                    {
+                        newValue = "nej";
+                    }
                     inventory[i] = string.Join(";", attributes);
                     break;
                 }
@@ -407,7 +417,7 @@
             searchedInventory.Add("");
             if (searchedInventory.Count == 1)
             {
-                Console.Write("\nDer blev ikke fundet noget. Vil du starte en ny søgning? (y/n): ");
+                Console.Write("Der blev ikke fundet noget. Vil du starte en ny søgning? (y/n): ");
                 while ((sInput = Console.ReadLine().ToLower()) != "y" && sInput != "n")
                 {
                     Console.Clear();
@@ -487,7 +497,7 @@
             searchedInventory.Add("");
             if (searchedInventory.Count == 1)
             {
-                Console.Write("\nDer blev ikke fundet noget. Vil du starte en ny søgning? (y/n): ");
+                Console.Write("Der blev ikke fundet noget. Vil du starte en ny søgning? (y/n): ");
                 while ((sInput = Console.ReadLine().ToLower()) != "y" && sInput != "n")
                 {
                     Console.Clear();
