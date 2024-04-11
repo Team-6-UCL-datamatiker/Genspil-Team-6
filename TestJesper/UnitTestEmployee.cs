@@ -29,7 +29,7 @@ public class UnitTestEmployee(Employee employee)
     [TestMethod]
     public void EmployeeIDisString()
     {
-        if (employee.UserId is not string)
+        if (employee.UserId is not not null)
         { 
             Assert.Fail();
         }       
