@@ -1,31 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Genspil_Team_6
+﻿namespace Genspil_Team_6
 {
     public class Employee
     {
         public string Name { get; set; }
-        public string UserID { get; set; }
+        public string UserId { get; set; }
         public int AccessLevel { get; set; }
 
-        public Employee(string name, string userID)
+        public Employee(string name, string userId)
         {
             Name = name;
-            UserID = userID;
+            UserId = userId;
         }
-        public Employee(string name, string userID, int accessLevel)
+        public Employee(string name, string userId, int accessLevel)
         {
             Name = name;
-            UserID = userID;
+            UserId = userId;
             AccessLevel = accessLevel;
         }
         public override string ToString()
         {
-            return $"Name: {Name}, UserID: {UserID}, AccessLevel: {AccessLevel}";
+            return $"Name: {Name}, UserID: {UserId}, AccessLevel: {AccessLevel}";
         }
     }
 }

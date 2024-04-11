@@ -1,48 +1,43 @@
 using Genspil_Team_6;
-using System.Security.Cryptography.X509Certificates;
 
-namespace TestEmployee
+namespace TestJesper;
+
+[TestClass]
+public class UnitTestEmployee(Employee employee)
 {
-    [TestClass]
-    public class UnitTestEmployee
+    [TestInitialize]
+    public void Init()
     {
-        private Employee employee;
-
-        [TestInitialize]
-        public void Init()
-        {
-            employee = new Employee("Jesper", "001", 1) ;
-        }
-
-        [TestMethod]
-        public void EmployeeExists()
-        {
-            Assert.IsNotNull(employee);
-        }
-        [TestMethod]
-        public void EmployeeNamePositive()
-        {
-            Assert.AreEqual("Jesper", employee.Name);
-        }
-        [TestMethod]
-        public void EmployeeNameNegative()
-        {
-            Assert.AreNotEqual("", employee.Name);
-        }
-        [TestMethod]
-        public void EmployeeIDisString()
-        {
-            if (employee.UserID is not string)
-            { 
-                Assert.Fail();
-            }
-                        
-        }
-        [TestMethod]
-        public void TestToString()
-        {
-            Assert.AreEqual("Name: Jesper, UserID: 001, AccessLevel: 1", employee.ToString());
-        }
-
+        employee = new Employee("Jesper", "001", 1) ;
     }
+
+    [TestMethod]
+    public void EmployeeExists()
+    {
+        Assert.IsNotNull(employee);
+    }
+    [TestMethod]
+    public void EmployeeNamePositive()
+    {
+        Assert.AreEqual("Jesper", employee.Name);
+    }
+    [TestMethod]
+    public void EmployeeNameNegative()
+    {
+        Assert.AreNotEqual("", employee.Name);
+    }
+    [TestMethod]
+    public void EmployeeIDisString()
+    {
+        if (employee.UserId is not string)
+        { 
+            Assert.Fail();
+        }       
+    }
+    [TestMethod]
+    public void TestToString()
+    {
+        Assert.AreEqual("Name: Jesper, UserID: 001, AccessLevel: 1", employee.ToString());
+    }
+
 }
