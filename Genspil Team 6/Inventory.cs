@@ -414,8 +414,7 @@ namespace Genspil_Team_6
                 default:
                     Console.WriteLine("Invalid input. Please try again");
                     Console.ReadLine();
-                    break;
-
+                    return this;
             }
             return filteredInventory;
         }
@@ -443,8 +442,7 @@ namespace Genspil_Team_6
                 default:
                     Console.WriteLine("Invalid input. Please try again");
                     Console.ReadLine();
-                    break;
-
+                    return this;
             }
             return filteredInventory;
         }
