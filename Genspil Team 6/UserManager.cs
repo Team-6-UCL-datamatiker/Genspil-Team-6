@@ -163,6 +163,7 @@ namespace Genspil_Team_6
                 if (!adminExists)
                 {
                     this.employees.Add(new Employee("admin", "admin", 2));
+                    SaveUsersToFile();
                 }
             }
             catch (FileNotFoundException)
