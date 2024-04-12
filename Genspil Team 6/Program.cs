@@ -13,6 +13,9 @@ namespace Genspil_Team_6
             Inventory inventory = new Inventory();
             userManager = new UserManager();
 
+            //Check if databasefiles exits and creates if not
+            CreateDatabaseFiles();
+
             //Load data
             inventory.LoadInventoryFromFile();
             inventory.LoadRequestsFromFile();
@@ -183,6 +186,22 @@ namespace Genspil_Team_6
             }
         }
 
+        static void CreateDatabaseFiles()
+        {
+            string[] files = { "GameDatabase.txt", "RequestDatabase.txt", "UserDatabase.txt" };
+
+            foreach (string file in files)
+            {
+                string filePath = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, file);
+                if (!File.Exists(filePath))
+                {
+                    File.Create(filePath).Close();
+                    Console.WriteLine($"{file} was created!");
+                    Console.ReadLine();
+                }
+            }
+        }
+
         //Display methods
         static void DisplayMainMenu(Employee currentUser)
         {
@@ -297,6 +316,8 @@ namespace Genspil_Team_6
             Console.WriteLine("  ________                                 .__ .__   \r\n /  _____/   ____    ____    ____________  |__||  |  \r\n/   \\  ___ _/ __ \\  /    \\  /  ___/\\____ \\ |  ||  |  \r\n\\    \\_\\  \\\\  ___/ |   |  \\ \\___ \\ |  |_> >|  ||  |__\r\n \\______  / \\___  >|___|  //____  >|   __/ |__||____/\r\n        \\/      \\/      \\/      \\/ |__|              \n");
             Console.ResetColor();
         }
+
+
 
     }
 }
