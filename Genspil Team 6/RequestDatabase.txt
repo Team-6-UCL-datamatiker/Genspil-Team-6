@@ -1,0 +1,10 @@
+﻿Stratego;1;Anders Andersen;88888888
+DND;2;John Smith;45454545
+Stratego;4;Anna Andersen;12345678
+DND;5;Jeppe Jepsen;23432343
+Ludo;6;Jim;99999999
+Bossen;7;Bo;98989898
+Ludo;8;Anders And;78787878
+Stratego;9;Anna Hansen;10203040
+Yatzy;10;Jeppe Hansen;98765432
+Yatzy;12;Bente Bent;12332112
