@@ -1,4 +1,4 @@
-﻿DND;RPG;4;True;1;120;GOOD
+DND;RPG;4;True;1;120;GOOD
 DND;Fantasy;4;True;2;120;GOOD
 DND;Fantasy;4;True;3;120;GOOD
 DND;Fantasy;4;True;4;120;POOR

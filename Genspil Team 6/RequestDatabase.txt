@@ -1,4 +1,4 @@
-﻿Stratego;1;Anders Andersen;88888888
+Stratego;1;Anders Andersen;88888888
 DND;2;John Smith;45454545
 Stratego;4;Anna Andersen;12345678
 DND;5;Jeppe Jepsen;23432343

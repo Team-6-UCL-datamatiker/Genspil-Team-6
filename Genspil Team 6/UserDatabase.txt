@@ -1,4 +1,4 @@
-﻿admin;admin;2
+admin;admin;2
 jeppe;password;1
 Bob;password;1
 Anders;123;1
