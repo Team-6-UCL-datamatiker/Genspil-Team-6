@@ -44,7 +44,7 @@ namespace GenspilTest
         }
 
         [TestMethod]
-        public void CheckBoardGameConstructor()
+        public void CheckGameConstructor()
         {
             //ARRANGE
             string gameName = "Stratego";
@@ -67,6 +67,64 @@ namespace GenspilTest
             Assert.AreEqual(price, game.Price);
             Assert.AreEqual(available, game.Available);
         }
+        [TestMethod]
+        public void LimitTest()
+        {
+            //ARRANGE
+            string name = "Anders Andersen";
+            string password = "42";
+            int accessLevel = 2;
+
+            //ACT
+            Employee employee = new Employee(name, password, accessLevel);
+
+            employee.AccessLevel = 4;
+            if (employee.AccessLevel > 2)
+            {
+                Assert.Fail();
+            }
+
+
+        }
+        [TestMethod]
+        public void EncapsulationTestEmployee()
+        {
+            //ARRANGE
+            string name = "Anders Andersen";
+            string password = "42";
+            int accessLevel = 2;
+
+            //ACT
+            Employee employee = new Employee(name, password, accessLevel);
+
+            employee.AccessLevel = 2;
+            if (employee.AccessLevel == 2)
+            {
+                Assert.Fail();
+            }
+        }
+        [TestMethod]
+        public void EncapsulationTestGame()
+        {
+            //ARRANGE
+            string gameName = "Stratego";
+            string genre = "Strategy";
+            string condition = "GOOD";
+            int gameID = 23;
+            int noOfPlayers = 2;
+            double price = 120;
+            bool available = true;
+
+            //ACT
+            Game game = new Game(gameName, genre, condition, gameID, noOfPlayers, price, available);
+
+            game.GameName = "Something wrong";
+            if (game.GameName == "Something wrong")
+            {
+                Assert.Fail();
+            }
+        }
+
 
     }
 }
