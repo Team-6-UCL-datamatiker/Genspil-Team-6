@@ -10,7 +10,6 @@ namespace Genspil_Team_6
         static void Main(string[] args)
         {
             Inventory inventory = new Inventory();
-            Menu menu = new Menu();
             UserManager userManager = new UserManager();
 
             //Load data
