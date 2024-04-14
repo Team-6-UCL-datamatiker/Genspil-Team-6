@@ -7,12 +7,14 @@ public class UnitTest1()
 {
     Employee employee;
     Game game;
+    Request request;
 
     [TestInitialize]
     public void Init()
     {
         employee = new Employee("Jesper", "Jesper", 1) ;
         game = new Game("DnD", "fantasy", "good", 11, 5, 123.99, true) ;
+        request = new Request("Tombraider", 101, "Jens Hansen", "03291029") ;
     }
 
 
@@ -21,12 +23,14 @@ public class UnitTest1()
     {
         Assert.IsNotNull(employee);
         Assert.IsNotNull(game);
+        Assert.IsNotNull(request);
     }
     [TestMethod]
     public void ObjectPositive()
     {
         Assert.AreEqual("Jesper", employee.Name);
         Assert.AreEqual("DnD", game.GameName);
+        Assert.AreEqual("Tombraider", request.GameName);
     }
     [TestMethod]
     public void ObjectNegative()
