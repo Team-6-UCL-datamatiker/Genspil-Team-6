@@ -6,6 +6,7 @@ namespace GenspilTest
     [TestClass]
     public class UnitTest1
     {
+
         [TestMethod]
         public void CheckRequestConstructor()
         {
@@ -30,15 +31,15 @@ namespace GenspilTest
         {
             //ARRANGE
             string name = "Anders Andersen";
-            string userID = "4";
+            string password = "42";
             int accessLevel = 2;
 
             //ACT
-            Employee employee = new Employee(name, userID, accessLevel);
+            Employee employee = new Employee(name, password, accessLevel);
 
             //ASSERT
             Assert.AreEqual(name, employee.Name);
-            Assert.AreEqual(userID, employee.UserID);
+            Assert.AreEqual(password, employee.Password);
             Assert.AreEqual(accessLevel, employee.AccessLevel);
         }
 
@@ -55,7 +56,7 @@ namespace GenspilTest
             bool available = true;
 
             //ACT
-            BoardGame game = new BoardGame(gameName, genre, condition, gameID, noOfPlayers, price, available);
+            Game game = new Game(gameName, genre, condition, gameID, noOfPlayers, price, available);
 
             //ASSERT
             Assert.AreEqual(gameName, game.GameName);
@@ -64,7 +65,7 @@ namespace GenspilTest
             Assert.AreEqual(gameID, game.GameID);
             Assert.AreEqual(noOfPlayers, game.NoOfPlayers);
             Assert.AreEqual(price, game.Price);
-            Assert.AreEqual(available, game.Available);      
+            Assert.AreEqual(available, game.Available);
         }
 
     }
